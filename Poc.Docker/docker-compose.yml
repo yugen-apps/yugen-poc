@@ -1,0 +1,24 @@
+# version: '3.4'
+
+name: docker_dotnet_sql
+services:
+  yugen-home-budget-aspnet:
+    image: yugen-home-budget-aspnet:latest
+    container_name: yugen-home-budget-aspnet
+    build:
+      context: .
+      dockerfile: Docker.Aspnet/compose.Dockerfile
+    # ports:
+    #   - "5000:8080"
+    depends_on:
+      - yugen-home-budget-sql
+
+  yugen-home-budget-sql:
+    image: yugen-home-budget-sql:latest
+    container_name: yugen-home-budget-sql
+    # hostname: yugen-home-budget-sql
+    build:
+      context: .
+      dockerfile: Docker.Mssql/compose.Dockerfile
+    ports:
+      - "1433:1433"

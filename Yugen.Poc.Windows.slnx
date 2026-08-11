@@ -1,0 +1,61 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Docs/">
+    <File Path="docs/Readme.md" />
+  </Folder>
+  <Folder Name="/Docs/Docker/">
+    <File Path="docs/docker/asp-net.md" />
+    <File Path="docs/docker/container-apps.md" />
+    <File Path="docs/docker/docker.md" />
+  </Folder>
+  <Folder Name="/Poc.Api/">
+    <Project Path="Poc.Api/Poc.Api.Client/Poc.Api.Client.csproj" />
+    <Project Path="Poc.Api/Poc.Api/Poc.Api.csproj" />
+  </Folder>
+  <Folder Name="/Poc.Docker/">
+    <File Path="Poc.Docker/docker-compose.dcproj" />
+    <File Path="Poc.Docker/docker-compose.linux.yml" />
+    <File Path="Poc.Docker/docker-compose.windows.yml" />
+    <File Path="Poc.Docker/docker-compose.yml" />
+    <File Path="Poc.Docker/launchSettings.json" />
+    <Project Path="Poc.Docker/Docker.App/Docker.App.csproj" />
+    <Project Path="Poc.Docker/Docker.Aspnet/Docker.Aspnet.csproj" />
+    <Project Path="Poc.Docker/Docker.Console/Docker.Console.csproj" />
+    <Project Path="Poc.Docker/Docker.Nas/aspnetapp.csproj" />
+  </Folder>
+  <Folder Name="/Poc.Docker/Docker.Compose/">
+    <File Path="Poc.Docker/docker-compose.dcproj" />
+    <File Path="Poc.Docker/docker-compose.linux.yml" />
+    <File Path="Poc.Docker/docker-compose.windows.yml" />
+    <File Path="Poc.Docker/docker-compose.yml" />
+    <File Path="Poc.Docker/launchSettings.json" />
+  </Folder>
+  <Folder Name="/Poc.Docker/Docker.MsSql/">
+    <File Path="Poc.Docker/Docker.Mssql/compose.Dockerfile" />
+    <File Path="Poc.Docker/Docker.Mssql/Dockerfile" />
+    <File Path="Poc.Docker/Docker.Mssql/entrypoint.sh" />
+    <File Path="Poc.Docker/Docker.Mssql/setup.sh" />
+    <File Path="Poc.Docker/Docker.Mssql/setup.sql" />
+  </Folder>
+  <Project Path="Entra.Blazor\Entra.Blazor.csproj" />
+  <Project Path="Google.Blazor.WebApp.Server/Google.Blazor.WebApp.Server.csproj" />
+  <Project Path="Google.Blazor.WebApp.WebAssembly/Google.Blazor.WebApp.WebAssembly.Client/Google.Blazor.WebApp.WebAssembly.Client.csproj" />
+  <Project Path="Google.Blazor.WebApp.WebAssembly/Google.Blazor.WebApp.WebAssembly/Google.Blazor.WebApp.WebAssembly.csproj" />
+  <Project Path="Graph.Blazor.Server/Graph.Blazor.Server.csproj" />
+  <Project Path="Graph.Blazor.WebApp/Graph.Blazor.WebApp.csproj" />
+  <Project Path="Poc.Console/Poc.Console.csproj" />
+  <Project Path="Poc.Lib.WinUI/Poc.Lib.WinUI.csproj" />
+  <Project Path="Poc.Mud.Blazor/Poc.Mud.Blazor.csproj" />
+  <Project Path="Poc.UWP/Poc.UWP.csproj" Id="947c36bf-39bf-476b-91cd-8ae5976400e4">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="Debug|Any CPU" Project="x64" />
+    <Deploy />
+  </Project>
+  <Project Path="Poc.WinUI/Poc.WinUI.csproj" Id="4cbd9ee4-4e04-4c83-9e84-6f42e5e78ac5">
+    <Platform Project="x64" />
+    <Deploy />
+  </Project>
+</Solution>

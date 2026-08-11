@@ -1,0 +1,16 @@
+<Project>
+
+	<PropertyGroup>
+		<Author>panda-sharp</Author>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Authors>$(Author)</Authors>
+		<Company>yugen-apps</Company>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/$(Author)/$(Solution)</PackageProjectUrl>	
+		<!-- <PackageReleaseNotes>releaseNotes</PackageReleaseNotes> -->
+		<!-- <Copyright>Copyright</Copyright> -->
+		<RepositoryUrl>https://github.com/panda-sharp/Yugen.Toolkit.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
+</Project>
