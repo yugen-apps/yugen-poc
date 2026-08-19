@@ -1,0 +1,26 @@
+services:
+
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  publisher:
+    container_name: publisher
+    hostname: publisher
+    build:
+      context: .
+      dockerfile: Publisher/Dockerfile
+    depends_on:
+      - redis
+
+  subscriber:
+    container_name: subscriber
+    hostname: subscriber
+    build:
+      context: .
+      dockerfile: ./Subscriber/Dockerfile
+    depends_on:
+      - redis

@@ -28,6 +28,17 @@
     <File Path="Poc.Docker/Docker.Mssql/setup.sh" />
     <File Path="Poc.Docker/Docker.Mssql/setup.sql" />
   </Folder>
+  <Folder Name="/Redis/">
+    <Project Path="Poc.Redis/Common/Common.csproj" />
+    <Project Path="Poc.Redis/docker-compose.dcproj">
+      <Build />
+    </Project>
+    <Project Path="Poc.Redis/Publisher/Publisher.csproj" />
+    <Project Path="Poc.Redis/Subscriber/Subscriber.csproj" />
+  </Folder>
+  <Folder Name="/Redis/Docs/">
+    <File Path="Poc.Redis/readme.md" />
+  </Folder>
   <Folder Name="/SignalR/">
     <Project Path="Poc.SignalR.Client/Poc.SignalR.Client.csproj" />
     <Project Path="Poc.SignalR.Server/Poc.SignalR.Server.csproj" />
