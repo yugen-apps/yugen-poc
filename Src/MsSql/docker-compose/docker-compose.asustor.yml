@@ -1,0 +1,25 @@
+services:
+
+  poc-docker-aspnet:
+    environment:
+      # - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8443
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Password@12345#
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/panda-nas-01.myasustor.com.pfx
+      - ConnectionStrings__MsSql=Server=poc-docker-sql;User ID=sa;Password=Password@12345#;Encrypt=True;Trust Server Certificate=True;Connection Timeout=10;
+    ports:
+      # - "3000:8080"
+      - "3000:8443"
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/home/app/.microsoft/usersecrets
+      - /volume1/Docker/https/:/home/app/.aspnet/https:ro
+    
+  poc-docker-sql:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "Password@12345#"
+    volumes:
+    - ../.volumes/sql/data:/var/opt/mssql/data
+    - ../.volumes/sql/log:/var/opt/mssql/log
+    - ../.volumes/sql/secrets:/var/opt/mssql/secrets

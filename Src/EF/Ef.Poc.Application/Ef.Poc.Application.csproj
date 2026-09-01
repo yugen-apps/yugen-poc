@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.12" />
+    <PackageReference Include="Riok.Mapperly" Version="5.0.0-next.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ef.Poc.Application.Contracts\Ef.Poc.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Ef.Poc.Domain\Ef.Poc.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

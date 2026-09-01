@@ -1,0 +1,83 @@
+<Solution>
+  <Folder Name="/.Docs/">
+    <File Path="../Docs/ado.md" />
+    <File Path="../Docs/arm.md" />
+    <File Path="../Docs/bicep.md" />
+    <File Path="../Docs/blazor.md" />
+    <File Path="../Docs/cheat-sheet.md" />
+    <File Path="../Docs/docker.md" />
+    <File Path="../Docs/identity.md" />
+    <File Path="../Docs/redis.md" />
+    <File Path="../Docs/windows.md" />
+  </Folder>
+  <Folder Name="/.Solution Items/">
+    <File Path="../.dockerignore" />
+    <File Path="../.github/workflows/poc-lib-winui-cicd.yml" />
+    <File Path="../.gitignore" />
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Api/">
+    <Project Path="Api/Poc.Api.Client/Poc.Api.Client.csproj" />
+    <Project Path="Api/Poc.Api/Poc.Api.csproj" />
+  </Folder>
+  <Folder Name="/Auth/">
+    <Project Path="Auth/Poc.Auth.Blazor/Poc.Auth.Blazor.csproj" />
+  </Folder>
+  <Folder Name="/Common/">
+    <Project Path="Common/Poc.Common.Data/Poc.Common.Data.csproj" />
+    <Project Path="Common/Poc.Common.Spectre/Poc.Common.Spectre.csproj" />
+    <Project Path="Common/Poc.Common.Web/Poc.Common.Web.csproj" />
+    <Project Path="Common/Poc.Common/Poc.Common.csproj" />
+  </Folder>
+  <Folder Name="/Console/">
+    <Project Path="Console/Poc.ConsoleApp/Poc.ConsoleApp.csproj" />
+  </Folder>  
+  <Folder Name="/EF/">
+  </Folder>
+  <Folder Name="/EF/Core/">
+    <Project Path="EF/Ef.Poc.Application.Contracts/Ef.Poc.Application.Contracts.csproj" />
+    <Project Path="EF/Ef.Poc.Application/Ef.Poc.Application.csproj" />
+    <Project Path="EF/Ef.Poc.Domain.Shared/Ef.Poc.Domain.Shared.csproj" />
+    <Project Path="EF/Ef.Poc.Domain/Ef.Poc.Domain.csproj" />
+  </Folder>
+  <Folder Name="/EF/Infrastructure/">
+    <Project Path="EF/Ef.Poc.Infrastructure/Ef.Poc.Infrastructure.csproj" />
+    <Project Path="EF/Ef.Poc.Persistence/Ef.Poc.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/EF/Presentation/">
+    <Project Path="EF/Ef.Poc.Api/Ef.Poc.Api.csproj" />
+    <Project Path="EF/Ef.Poc.WorkerService/Ef.Poc.WorkerService.csproj" />
+  </Folder>
+  <Folder Name="/EF/Tests/">
+    <Project Path="EF/Ef.Poc.Infrastructure.UnitTests/Ef.Poc.Infrastructure.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/MsSql/">
+    <Project Path="MsSql/docker-compose/docker-compose.dcproj">
+      <Build />
+    </Project>
+    <Project Path="MsSql/Poc.Docker.Aspnet/Poc.Docker.Aspnet.csproj" />
+  </Folder>
+  <Folder Name="/MsSql/Poc.Docker.MsSql/">
+    <File Path="MsSql/Poc.Docker.Mssql/Dockerfile" />
+    <File Path="MsSql/Poc.Docker.Mssql/Dockerfile.compose" />
+    <File Path="MsSql/Poc.Docker.Mssql/entrypoint.sh" />
+    <File Path="MsSql/Poc.Docker.Mssql/setup.sh" />
+    <File Path="MsSql/Poc.Docker.Mssql/setup.sql" />
+  </Folder>
+  <Folder Name="/Redis/">
+    <Project Path="Redis/docker-compose/docker-compose.dcproj">
+      <Build />
+    </Project>
+    <Project Path="Redis/Poc.Redis.Common/Poc.Redis.Common.csproj" />
+    <Project Path="Redis/Poc.Redis.Publisher/Poc.Redis.Publisher.csproj" />
+    <Project Path="Redis/Poc.Redis.Subscriber/Poc.Redis.Subscriber.csproj" />
+  </Folder>
+  <Folder Name="/SignalR/">
+    <Project Path="SignalR/Poc.SignalR.Client/Poc.SignalR.Client.csproj" />
+    <Project Path="SignalR/Poc.SignalR.Server/Poc.SignalR.Server.csproj" />
+    <Project Path="SignalR/Poc.SignalR.Shared/Poc.SignalR.Shared.csproj" />
+  </Folder>
+  <Folder Name="/WorkerService/">
+    <Project Path="WorkerService/Poc.WorkerService/Poc.WorkerService.csproj" />
+  </Folder>
+</Solution>

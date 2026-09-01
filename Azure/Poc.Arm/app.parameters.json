@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "value": "ae0647c4-c323-493b-8233-99012b801938"
+    },
+    "resourceGroupName": {
+      "value": "rg-tmp2"
+    },
+    "location": {
+      "value": "westeurope"
+    },
+    "vnetName": {
+      "value": "vnet-tmp2"
+    },
+    "subnetName": {
+      "value": "subnet-tmp2"
+    },
+    "environmentName": {
+      "value": "cae-tmp2"
+    },
+    "appName": {
+      "value": "ca-tmp2"
+    },
+    "containers": {
+      "value": [
+        {
+          "name": "sqlserver2019container",
+          "image": "mcr.microsoft.com/mssql/server:2019-latest",
+          "command": [],
+          "resources": {
+            "cpu": "1",
+            "memory": "2Gi"
+          },
+          "env": [
+            {
+              "name": "ACCEPT_EULA",
+              "value": "Y"
+            },
+            {
+              "name": "MSSQL_SA_PASSWORD",
+              "value": "Password@12345#"
+            }
+          ]
+        }
+      ]
+    },
+    "ingress": {
+      "value": {
+        "external": true,
+        "transport": "Tcp",
+        "allowInsecure": false,
+        "targetPort": 1433,
+        "exposedPort": 1433,
+        "stickySessions": {
+          "affinity": "none"
+        },
+        "additionalPortMappings": []
+      }
+    }
+  }
+}
