@@ -1,0 +1,15 @@
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Yugen.Common.Identity.Core.Features.Users.DTOs;
+
+namespace Yugen.Common.Identity.Core.Features.Users.Services;
+
+public interface IUserService
+{
+    UserDto UserProfileState { get; }
+
+    event EventHandler<UserDto>? UserChanged;
+
+    Task EnsureInitializedAsync(Guid? userId, CancellationToken cancellationToken = default);
+}

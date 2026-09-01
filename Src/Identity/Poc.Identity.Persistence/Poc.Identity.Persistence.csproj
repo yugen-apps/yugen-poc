@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.15" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\Yugen.Common.Identity.Domain\Yugen.Common.Identity.Domain.csproj" />
+	  <ProjectReference Include="..\..\Common\Yugen.Common.Persistence\Yugen.Common.Persistence.csproj" />
+	  <ProjectReference Include="..\Poc.Identity.Domain.Shared\Poc.Identity.Domain.Shared.csproj" />
+	  <ProjectReference Include="..\Poc.Identity.Domain\Poc.Identity.Domain.csproj" />
+	</ItemGroup>
+</Project>

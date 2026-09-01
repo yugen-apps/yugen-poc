@@ -1,0 +1,21 @@
+{
+  "id": "e5db5c4a-0802-46a5-9e85-8af93c97bf11",
+  "importStreams": [
+    {
+      "id": "602ff710-168a-4eef-8467-43f49dd0fda2",
+      "name": "open-api-url-importer",
+      "importerName": "OpenApiUrlImporter",
+      "createMissingOperations": true,
+      "options": {
+        "url": "https://localhost:5000",
+        "disableAutoRedirect": false,
+        "disableServerCertificateValidation": false,
+        "disableCookies": false,
+        "infiniteTimeout": false
+      }
+    }
+  ],
+  "authConfigs": [],
+  "certificates": [],
+  "proxies": []
+}

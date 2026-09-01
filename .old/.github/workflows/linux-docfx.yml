@@ -1,0 +1,31 @@
+name: DocFx Clone And Build
+# This workflow is triggered on push to the repository.
+on: [release]
+
+jobs:
+  build:
+    name: Clone Repos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Clone
+        run: git clone https://emiliano84:${{secrets.GITHUB_TOKEN}}@github.com/emiliano84/Toolkit.git ../Toolkit
+
+      - name: Echo
+        run: echo ${HOME} ${GITHUB_ACTOR} ${GITHUB_REPOSITORY} ${GITHUB_WORKSPACE} ${GITHUB_SHA} 
+        # ${{secrets.TOKEN}} ${{secrets.GITHUB_TOKEN}}
+
+      - name: Ls
+        run: ls
+
+      - name: Ls /home/runner/work/Toolkit.Docs
+        run: ls /home/runner/work/Toolkit.Docs        
+        
+  docfx_build:
+    runs-on: ubuntu-latest
+    name: Docfx Build
+    steps:
+    - name: Docfx Build Step
+      id: docfx_build
+      uses: emiliano84/Toolkit.Docs/.github/actions/docfx-build@master

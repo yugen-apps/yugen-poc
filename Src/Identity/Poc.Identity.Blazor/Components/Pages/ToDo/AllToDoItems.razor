@@ -1,0 +1,15 @@
+﻿@attribute [Authorize(Policy = (PermissionsConstants.ToDo.All))]
+@attribute [Route(RouteConstants.ToDo.All)]
+
+@using Microsoft.AspNetCore.Authorization
+
+<PageTitle>AllToDoItems</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">AllToDoItems</MudText>
+
+@foreach (var toDoItem in allToDoItemsDto)
+{
+    <MudText Typo="Typo.body1" Class="mb-4">
+        - @toDoItem.Id ( @toDoItem.Title ) / @toDoItem.TenantId
+    </MudText>
+}

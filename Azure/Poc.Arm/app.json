@@ -1,0 +1,121 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "type": "string"
+    },
+    "resourceGroupName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "vnetName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
+    },
+    "environmentName": {
+      "type": "string"
+    },
+    "appName": {
+      "type": "string"
+    },
+    "containers": {
+      "type": "array"
+    },
+    "ingress": {
+      "type": "object"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2020-07-01",
+      "location": "[parameters('location')]",
+      "name": "[parameters('vnetName')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": ["10.0.0.0/16"]
+        },
+        "subnets": []
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "apiVersion": "2020-07-01",
+      "name": "[concat(parameters('vnetName'), '/', parameters('subnetName'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+      ],
+      "properties": {
+        "delegations": [
+          {
+            "name": "Microsoft.App.environments",
+            "id": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Network/availableDelegations/Microsoft.App.environments')]",
+            "type": "Microsoft.Network/availableDelegations",
+            "properties": {
+              "serviceName": "Microsoft.App/environments",
+              "actions": [
+                "Microsoft.Network/virtualNetworks/subnets/join/action"
+              ]
+            }
+          }
+        ],
+        "serviceEndpoints": [],
+        "addressPrefix": "10.0.0.0/23"
+      }
+    },
+    {
+      "type": "Microsoft.App/managedEnvironments",
+      "apiVersion": "2023-11-02-preview",
+      "name": "[parameters('environmentName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+      ],
+      "properties": {
+        "workloadProfiles": [
+          {
+            "name": "Consumption",
+            "workloadProfileType": "Consumption"
+          }
+        ],
+        "vnetConfiguration": {
+          "infrastructureSubnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+          "internal": false
+        },
+        "zoneRedundant": false
+      }
+    },
+    {
+      "type": "Microsoft.App/containerapps",
+      "apiVersion": "2023-11-02-preview",
+      "name": "[parameters('appName')]",
+      "location": "[parameters('location')]",
+      "kind": "containerapps",
+      "dependsOn": [
+        "[concat('Microsoft.App/managedEnvironments/', parameters('environmentName'))]"
+      ],
+      "properties": {
+        "environmentId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourceGroupName'), '/providers/Microsoft.App/managedEnvironments/', parameters('environmentName'))]",
+        "configuration": {
+          "secrets": [],
+          "registries": [],
+          "activeRevisionsMode": "Single",
+          "ingress": "[parameters('ingress')]"
+        },
+        "template": {
+          "containers": "[parameters('containers')]",
+          "scale": {
+            "minReplicas": 1,
+            "maxReplicas": 1
+          }
+        },
+        "workloadProfileName": "Consumption"
+      }
+    }
+  ]
+}

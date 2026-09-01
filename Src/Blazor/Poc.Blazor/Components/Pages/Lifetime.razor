@@ -1,0 +1,14 @@
+﻿@page "/lifetime"
+
+<PageTitle>lifetime</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Countlifetimeer</MudText>
+
+<MudButton OnClick="OnClick">Click Me</MudButton>
+
+@foreach (var result in results)
+{
+    <MudText Typo="Typo.body1" Class="mb-4">
+        @result
+    </MudText>
+}

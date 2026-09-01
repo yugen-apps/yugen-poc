@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Yugen.Common.Identity.Domain\Yugen.Common.Identity.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\Yugen.Common.Persistence\Yugen.Common.Persistence.csproj" />
+    
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+name: poc-docker2
+services:
+
+  poc-docker-sql:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "Password@12345#"
+    volumes:
+      - ../.volumes/sql/data:/var/opt/mssql/data
+      - ../.volumes/sql/log:/var/opt/mssql/log
+      - ../.volumes/sql/secrets:/var/opt/mssql/secrets

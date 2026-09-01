@@ -1,0 +1,15 @@
+name: poc-docker2
+services:
+
+  poc-docker-aspnet:
+    container_name: poc-docker-aspnet2
+    environment:
+      - ASPNETCORE_HTTPS_PORTS=8443
+      - ConnectionStrings__MsSql=Server=poc-docker-sql;User ID=sa;Password=Password@12345#;Encrypt=True;Trust Server Certificate=True;Connection Timeout=10;
+    ports:
+      - "9999:8443"
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/home/app/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https/:/home/app/.aspnet/https:ro
+      
+
