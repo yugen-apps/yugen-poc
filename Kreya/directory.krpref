@@ -1,0 +1,12 @@
+{
+  "settings": [
+    {
+      "options": {
+        "rest": {
+          "endpoint": "https://localhost:5000",
+          "disableServerCertificateValidation": false
+        }
+      }
+    }
+  ]
+}

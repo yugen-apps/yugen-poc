@@ -1,0 +1,15 @@
+{
+  "name": "panda",
+  "stringArrayAsString": "[\"a\",\"a\"]",
+  "intArrayAsString": "[1,2]",
+  "testString": "value",
+  "testInt": 1,
+  "testArray": [
+    "array1",
+    "array2"
+  ],
+  "properties": {
+    "bookid": "value",
+    "noteid": 1
+  }
+}

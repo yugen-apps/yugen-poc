@@ -1,0 +1,49 @@
+﻿@using Yugen.Common.Blazor.Components
+@implements IDisposable
+
+<MudNavMenu>
+    <AuthorizeView>
+        <Authorized>
+            @* @context.User.Identity?.Name *@
+
+            @foreach (var menuItem in MenuItems)
+            {
+                @if (menuItem.IsParent)
+                {
+                    <MudStaticNavGroup Title="@menuItem.Title"
+                                       Icon="@menuItem.Icon">
+                        @foreach (var menuSubItem in menuItem.MenuSubItems)
+                        {
+                            <MenuItemComponent MenuItem="@menuSubItem" />
+                        }
+
+                        @if (hasExternalLogins)
+                        {
+                            <MenuItemComponent MenuItem="@AccountMenuConstants.Manage.ExternalLogins" />
+                        }
+                    </MudStaticNavGroup>
+                }
+                else
+                {
+                    <MenuItemComponent MenuItem="@menuItem" />
+                }
+            }
+
+            <form action="@AccountRouteConstants.Logout" method="post">
+                <AntiforgeryToken />
+                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                <button type="submit" class="mud-nav-link mud-ripple">
+                    <MudIcon Icon="@Icons.Material.Filled.Logout" 
+                             Color="Color.Info" 
+                             Class="mr-3"/> 
+                             Logout
+                </button>
+            </form>
+        </Authorized>
+
+        <NotAuthorized>
+            <MenuItemComponent MenuItem="@AccountMenuConstants.Register" />
+            <MenuItemComponent MenuItem="@AccountMenuConstants.Login" />
+        </NotAuthorized>
+    </AuthorizeView>
+</MudNavMenu>
