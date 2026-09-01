@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Yugen.Home.Knx.Data.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<MudNavMenu>
+	@foreach (var menuItem in AccountMenuConstants.AccountManageMenuItems)
+	{
+		<MudNavLink Href="@menuItem.Path"
+					Match="NavLinkMatch.All"
+					Icon="@menuItem.Icon">
+			@menuItem.Title
+		</MudNavLink>
+	}
+
+	@if (hasExternalLogins)
+	{
+		<MudNavLink Href="@AccountMenuConstants.AccountManageExternalLoginsMenuItem.Path"
+					Match="NavLinkMatch.All"
+					Icon="@AccountMenuConstants.AccountManageExternalLoginsMenuItem.Icon">
+			@AccountMenuConstants.AccountManageExternalLoginsMenuItem.Title
+		</MudNavLink>
+	}
+</MudNavMenu>
+
+@code {
+	private bool hasExternalLogins;
+
+	protected override async Task OnInitializedAsync()
+	{
+		hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+	}
+}

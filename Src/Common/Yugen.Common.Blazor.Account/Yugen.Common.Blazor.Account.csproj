@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MudBlazor" Version="9.11.0" />
+		<PackageReference Include="Extensions.MudBlazor.StaticInput" Version="4.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Yugen.Common.Blazor\Yugen.Common.Blazor.csproj" />
+	</ItemGroup>
+
+</Project>

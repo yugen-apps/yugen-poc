@@ -1,0 +1,32 @@
+name: poc-docker
+services:
+
+  poc-docker-aspnet:
+    container_name: poc-docker-aspnet
+    entrypoint: ["dotnet", "Poc.Ef.Aspnet.dll"]
+    build:
+      context: ../..
+      dockerfile: ./EF/Poc.Ef.Aspnet/Dockerfile    
+      args:
+        - PROJECT=EF/Poc.Ef.Aspnet   
+        - COMMON=Common
+    # depends_on:
+    #   - poc-docker-sql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - poc-network
+
+  poc-docker-sql:
+    container_name: poc-docker-sql
+    hostname: poc-docker-sql
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    ports:
+      - "1433:1433"
+    networks:
+      - poc-network
+
+networks:
+  poc-network:
+    driver: bridge
+    name: poc-network

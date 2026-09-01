@@ -1,0 +1,23 @@
+﻿{
+  "profiles": {
+    "Sample": {
+      "commandName": "Project"
+    },
+    "Sample:Hello": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld"
+    },
+    "Sample:Hello Name": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld -n Emil"
+    },
+    "Sample:Hello Name Dog": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld -n Emil -p Klaus"
+    },
+    "Sample:Alias Hello Name": {
+      "commandName": "Project",
+      "commandLineArgs": "h -n Emil"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+- [Modules](https://azure.github.io/Azure-Verified-Modules/indexes/bicep/bicep-resource-modules/)
+- [Docs](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/add-template-to-azure-pipelines?tabs=CLI)
+- [Templates](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/containerapps?pivots=deployment-language-bicep)

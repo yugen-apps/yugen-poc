@@ -1,0 +1,14 @@
+{
+  "details": {
+    "path": "/category/get4/1",
+    "method": "GET"
+  },
+  "requests": [
+    {
+      "contentType": "none"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "rest",
+  "typeHint": "GET"
+}

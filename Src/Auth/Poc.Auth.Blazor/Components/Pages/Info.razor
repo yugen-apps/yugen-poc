@@ -1,0 +1,30 @@
+﻿@page "/Info"
+
+<PageTitle>Info</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Welcome to .NET!</MudText>
+<MudDivider />
+
+<MudText Typo="Typo.h4" GutterBottom="true">System Info</MudText>
+<MudList T="string">
+    @foreach (var item in _systemInfos)
+    {
+        <MudListItem Text="@item.Key" SecondaryText="@item.Value" />
+    }
+</MudList>
+
+<MudText Typo="Typo.h4" GutterBottom="true">WebHostEnvironment Info</MudText>
+<MudList T="string">
+    @foreach (var item in _webHostEnvironmentInfos)
+    {
+        <MudListItem Text="@item.Key" SecondaryText="@item.Value" />
+    }
+</MudList>
+
+<MudText Typo="Typo.h4" GutterBottom="true">Configuration KeyValues</MudText>
+<MudList T="string">
+    @foreach (var item in _configurationKeyValues)
+    {
+        <MudListItem Text="@item.Key" SecondaryText="@item.Value" />
+    }
+</MudList>

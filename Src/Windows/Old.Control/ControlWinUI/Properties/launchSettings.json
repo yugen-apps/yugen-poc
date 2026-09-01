@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ControlWinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ControlWinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

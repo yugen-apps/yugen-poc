@@ -1,0 +1,20 @@
+﻿<Page x:Class="Poc.UWP.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <interactivity:Interaction.Behaviors>
+        <interactivity:EventTriggerBehavior EventName="Loaded">
+            <interactivity:InvokeCommandAction Command="{x:Bind ViewModel.LoadCommand}" />
+        </interactivity:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+
+    <StackPanel>
+        <TextBlock Text="{x:Bind ViewModel.Account, Mode=OneWay}" />
+        <TextBlock Text="{x:Bind ViewModel.AccountFeatureFlags, Mode=OneWay}" />
+    </StackPanel>
+</Page>
