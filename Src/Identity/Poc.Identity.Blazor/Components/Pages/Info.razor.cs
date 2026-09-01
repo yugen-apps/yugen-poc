@@ -1,0 +1,87 @@
+using Microsoft.Extensions.Configuration;
+using Poc.Identity.Application.Features.Helpers.Commands;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Yugen.Common.Data.Cqrs;
+using Yugen.Common.Info;
+using Yugen.Common.Web.Info;
+
+namespace Poc.Identity.Blazor.Components.Pages;
+
+public partial class Info
+{
+    private static JsonSerializerOptions _jsonSerializerOptions = new(JsonSerializerDefaults.Web) { WriteIndented = true };
+
+    private readonly SystemInfoService _systemInfoService;
+    private readonly WebHostInfoService _webHostInfoService;
+    private readonly ICommandHandler<CanConnectCommand> _handler;
+    private readonly IConfiguration _configuration;
+
+    private Dictionary<string, string> _systemInfos = [];
+    private Dictionary<string, string> _webHostEnvironmentInfos = [];
+    private Dictionary<string, string> _configurationKeyValues = [];
+
+    public bool Processing { get; set; }
+
+    public string CanConnectText { get; set; } = "???";
+
+    public Info(
+        SystemInfoService systemInfoService,
+        WebHostInfoService webHostInfoService,
+        ICommandHandler<CanConnectCommand> handler,
+        IConfiguration configuration)
+    {
+        _systemInfoService = systemInfoService;
+        _webHostInfoService = webHostInfoService;
+        _handler = handler;
+        _configuration = configuration;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _systemInfos = await _systemInfoService.InitializedAsync();
+
+        _webHostEnvironmentInfos = _webHostInfoService.Initialize();
+
+        _configurationKeyValues = _systemInfoService.AllConfigurationKeyValues(_configuration);
+    }
+
+    //private readonly IConfiguration _configuration;
+
+    //private string ConnectionString => _configuration?.GetConnectionString("MsSql") ?? string.Empty;
+
+    //private string MyVar1 => _configuration?.GetValue<string>("MyVar1") ?? string.Empty;
+    //private string MyVar2 => _configuration?.GetValue<string>("MyVar2:MyVar2") ?? string.Empty;
+    //private string MyVar3 => _configuration?.GetValue<string>("MyVar3:MyVar3") ?? string.Empty;
+
+    //private string MySecret1 => _configuration?.GetValue<string>("MySecret1") ?? string.Empty;
+    //private string MySecret2 => _configuration?.GetValue<string>("MySecret2:MySecret2") ?? string.Empty;
+    //private string MySecret3 => _configuration?.GetValue<string>("MySecret3:MySecret3") ?? string.Empty;
+
+    //private string Pwd1 => _configuration?.GetValue<string>("ASPNETCORE_Kestrel:Certificates:Default:Password") ?? string.Empty;
+    //private string Pwd2 => _configuration?.GetValue<string>("Kestrel:Certificates:Default:Password") ?? string.Empty;
+
+    //private string Path1 => _configuration?.GetValue<string>("ASPNETCORE_Kestrel:Certificates:Default:Path") ?? string.Empty;
+    //private string Path2 => _configuration?.GetValue<string>("Kestrel:Certificates:Default:Path") ?? string.Empty;
+
+    //private readonly AuthService _authService;
+
+    //var currentUser = await _authService.GetCurrentUserAsync();
+    //{ "ConfigurationConnectionString", currentUser.IsAuthenticated ? _configuration?.GetConnectionString("AZURE_SQL_CONNECTIONSTRING") ?? string.Empty : string.Empty},
+    //{ "EnvConnectionString", currentUser.IsAuthenticated ? Environment.GetEnvironmentVariable("SQLAZURECONNSTR_AZURE_SQL_CONNECTIONSTRING") ?? string.Empty : string.Empty},
+
+    private async Task CanConnectButtonOnClick()
+    {
+        Processing = true;
+
+        await Task.Delay(500);
+
+        CanConnectCommand command = new();
+        var result = await _handler.Handle(command, CancellationToken.None);
+        CanConnectText = $"{result.IsSuccess}";
+
+        Processing = false;
+    }
+}

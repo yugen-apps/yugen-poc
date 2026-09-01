@@ -1,0 +1,15 @@
+{
+  "details": {
+    "endpoint": "http://localhost:5040",
+    "path": "/log/process",
+    "method": "POST"
+  },
+  "requests": [
+    {
+      "contentType": "none"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "rest",
+  "typeHint": "POST"
+}

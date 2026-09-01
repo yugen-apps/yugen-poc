@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Riok.Mapperly" Version="5.0.0-next.12" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Yugen.Common.Blazor.Account\Yugen.Common.Blazor.Account.csproj" />
+		<ProjectReference Include="..\Poc.Identity.Domain\Poc.Identity.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+﻿@using Yugen.Common.Blazor.Account.Shared
+
+<Router AppAssembly="typeof(Program).Assembly" 
+		AdditionalAssemblies="
+		[
+			typeof(Yugen.Common.Blazor._Imports).Assembly,
+			typeof(Yugen.Common.Blazor.Account._Imports).Assembly
+		]"
+        NotFoundPage="typeof(Pages.NotFound)">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+</Router>

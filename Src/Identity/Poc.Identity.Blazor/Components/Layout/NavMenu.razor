@@ -1,0 +1,27 @@
+﻿@using Yugen.Common.Blazor.Account.Shared
+@using Yugen.Common.Blazor.Components
+
+<MudNavMenu>
+    @foreach (var menuItem in MenuItems)
+    {
+        @if (menuItem.IsParent)
+        {
+            <AuthorizeView Policy="@menuItem.Policy">
+                <MudNavGroup Title="@menuItem.Title"
+                             Icon="@menuItem.Icon">
+                    @foreach (var menuSubItem in menuItem.MenuSubItems)
+                    {
+                        <MenuItemComponent MenuItem="@menuSubItem" />
+                    }
+                </MudNavGroup>
+            </AuthorizeView>
+        }
+        else
+        {
+            <MenuItemComponent MenuItem="@menuItem" />
+        }
+    }
+
+    <MudDivider />
+    <ManageNavMenu/>
+</MudNavMenu>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Poc.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Poc.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
