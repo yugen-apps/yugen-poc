@@ -1,0 +1,92 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using MudBlazor.Services;
+using Poc.Common;
+using Poc.Ef.Application.Extensions;
+using Poc.Ef.Aspnet.Components;
+using Poc.Ef.Aspnet.Extensions;
+using Poc.Ef.Infrastructure.Extensions;
+using Poc.Ef.Persistence.Extensions;
+
+namespace Poc.Ef.Aspnet;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Add services to the container.
+        builder.Services.AddApplication(builder.Configuration);
+        builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddPersistence(builder.Configuration);
+
+        // Add MudBlazor services
+        builder.Services.AddMudServices();
+
+        // Add services to the container.
+        builder.Services.AddRazorComponents()
+            .AddInteractiveServerComponents();
+
+        // builder.Services.AddHealthChecks();
+
+        // Uncomment if using System.Text.Json source generation
+        // builder.Services.ConfigureHttpJsonOptions(options =>
+        // {
+        //     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+        // });
+
+        // Add Services
+        builder.Services.ConfigureServices(builder.Configuration);
+
+        var app = builder.Build();
+
+        // app.MapHealthChecks("/healthz");
+
+        // Configure the HTTP request pipeline.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Error");
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+        }
+        app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+
+        app.UseHttpsRedirection();
+
+        app.UseAntiforgery();
+
+        app.MapStaticAssets();
+        app.MapRazorComponents<App>()
+            .AddInteractiveServerRenderMode();
+
+        // CancellationTokenSource cancellation = new();
+        // app.Lifetime.ApplicationStopping.Register(() =>
+        // {
+        //     cancellation.Cancel();
+        // });
+
+        app.MapGet("/Environment", () =>
+        {
+            return new EnvironmentInfo();
+        });
+
+        // This API demonstrates how to use task cancellation
+        // to support graceful container shutdown via SIGTERM.
+        // The method itself is an example and not useful.
+        //app.MapGet("/Delay/{value}", async (int value) =>
+        //{
+        //    try
+        //    {
+        //        await Task.Delay(value, cancellation.Token);
+        //    }
+        //    catch(TaskCanceledException)
+        //    {
+        //    }
+        //    return new Operation(value);
+        //});
+
+        app.Run();
+    }
+}
