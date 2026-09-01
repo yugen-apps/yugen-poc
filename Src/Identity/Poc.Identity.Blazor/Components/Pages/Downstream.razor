@@ -1,0 +1,26 @@
+﻿@page "/Downstream"
+@using System.Text.Json
+
+<PageTitle>Home</PageTitle>
+
+@*
+@foreach (var msGraphResult in _msGraphResults)
+{
+    <h3>@msGraphResult.Name:</h3>
+    <ul>
+        @foreach (var result in msGraphResult.Values)
+        {
+            <li>@result</li>
+        }
+    </ul>
+} *@
+
+@foreach (var keyValue in _keyValues)
+{
+    <h3>@keyValue.Name:</h3>
+    <div>@keyValue.Values</div>
+}
+
+<p>
+    <a href="/MicrosoftIdentity/Account/SignOut">SignOut</a>
+</p>

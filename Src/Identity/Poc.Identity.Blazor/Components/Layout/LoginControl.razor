@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.Extensions.Logging
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILogger<LoginControl> Logger;
+
+<AuthorizeView>
+    <Authorized>
+        <form action="/authentication/logout" method="post">
+            <AntiforgeryToken />
+            <MudButton ButtonType="ButtonType.Submit">Entra Logout</MudButton>
+        </form>
+        <form action="/identity/logout" method="post">
+            <AntiforgeryToken />
+            <MudButton ButtonType="ButtonType.Submit">Google Logout</MudButton>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <MudButton Href="/authentication/login?returnUrl=user-claims">Entra Login</MudButton>
+
+        <MudButton Href="/identity/login">Google Login</MudButton>
+    </NotAuthorized>
+</AuthorizeView>

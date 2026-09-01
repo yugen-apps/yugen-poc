@@ -1,0 +1,61 @@
+<Solution>
+  <Folder Name="/.Docs/">
+    <File Path="../Docs/ado.md" />
+    <File Path="../Docs/arm.md" />
+    <File Path="../Docs/bicep.md" />
+    <File Path="../Docs/docker.md" />
+    <File Path="../Docs/identity.md" />
+    <File Path="../Docs/redis.md" />
+    <File Path="../Docs/windows.md" />
+    <File Path="cheat-sheet.md" />
+  </Folder>
+  <Folder Name="/.Solution Items/">
+    <File Path="../.dockerignore" />
+    <File Path="../.gitignore" />
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Api/">
+    <Project Path="Api/Poc.Api.Client/Poc.Api.Client.csproj" />
+    <Project Path="Api/Poc.Api/Poc.Api.csproj" />
+  </Folder>
+  <Folder Name="/Console/">
+    <Project Path="Console/Poc.Console/Poc.Console.csproj" />
+  </Folder>
+  <Folder Name="/Docker/">
+    <Project Path="Docker/docker-compose/docker-compose.dcproj">
+      <Build />
+    </Project>
+    <Project Path="Docker/Poc.Docker.Aspnet/Poc.Docker.Aspnet.csproj" />
+    <Project Path="Docker/Poc.Docker.Console/Poc.Docker.Console.csproj" />
+  </Folder>
+  <Folder Name="/Docker/Poc.Docker.MsSql/">
+    <File Path="Docker/Poc.Docker.Mssql/Dockerfile" />
+    <File Path="Docker/Poc.Docker.Mssql/Dockerfile.compose" />
+    <File Path="Docker/Poc.Docker.Mssql/entrypoint.sh" />
+    <File Path="Docker/Poc.Docker.Mssql/setup.sh" />
+    <File Path="Docker/Poc.Docker.Mssql/setup.sql" />
+  </Folder>
+  <Folder Name="/Identity/">
+    <Project Path="Identity/Google.Blazor.WebApp.Server/Google.Blazor.WebApp.Server.csproj" />
+    <Project Path="Identity/Poc.Identity.Blazor/Poc.Identity.Blazor.csproj" Id="d6978599-c9a0-469b-844d-e2fe51e1c6a4" />
+  </Folder>
+  <Folder Name="/Redis/">
+    <Project Path="Redis/docker-compose/docker-compose.dcproj">
+      <Build />
+    </Project>
+    <Project Path="Redis/Poc.Redis.Common/Poc.Redis.Common.csproj" />
+    <Project Path="Redis/Poc.Redis.Publisher/Poc.Redis.Publisher.csproj" />
+    <Project Path="Redis/Poc.Redis.Subscriber/Poc.Redis.Subscriber.csproj" />
+  </Folder>
+  <Folder Name="/Redis2/">
+    <Project Path="Redis2/RedisMessageLabApi/RedisMessageLabApi.csproj" />
+  </Folder>
+  <Folder Name="/SignalR/">
+    <Project Path="SignalR/Poc.SignalR.Client/Poc.SignalR.Client.csproj" />
+    <Project Path="SignalR/Poc.SignalR.Server/Poc.SignalR.Server.csproj" />
+    <Project Path="SignalR/Poc.SignalR.Shared/Poc.SignalR.Shared.csproj" />
+  </Folder>
+  <Folder Name="/WorkerService/">
+    <Project Path="WorkerService/Poc.WorkerService/Poc.WorkerService.csproj" />
+  </Folder>
+</Solution>

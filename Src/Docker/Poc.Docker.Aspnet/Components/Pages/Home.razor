@@ -1,0 +1,109 @@
+﻿@page "/"
+@using System.Runtime.InteropServices
+
+<PageTitle>Home</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Welcome to .NET!</MudText>
+
+<MudDivider />
+
+<MudSimpleTable align="center">
+    <tr><td>ConnectionString</td><td>@ConnectionString</td></tr>
+
+    <tr><td>MyVar1</td><td>@MyVar1</td></tr>
+    <tr><td>MyVar2</td><td>@MyVar2</td></tr>
+    <tr><td>MyVar3</td><td>@MyVar3</td></tr>
+
+    <tr><td>MySecret1</td><td>@MySecret1</td></tr>
+    <tr><td>MySecret2</td><td>@MySecret2</td></tr>
+    <tr><td>MySecret3</td><td>@MySecret3</td></tr>
+
+    <tr><td>Pwd1</td><td>@Pwd1</td></tr>
+    <tr><td>Pwd2</td><td>@Pwd2</td></tr>
+
+    <tr><td>Path1</td><td>@Path1</td></tr>
+    <tr><td>Path2</td><td>@Path2</td></tr>
+</MudSimpleTable>
+
+<MudDivider />
+
+<MudSimpleTable align="center">
+    <tr>
+        <td>.NET version</td>
+        <td>@RuntimeInformation.FrameworkDescription</td>
+    </tr>
+    <tr>
+        <td>Operating system</td>
+        <td>@RuntimeInformation.OSDescription</td>
+    </tr>
+    <tr>
+        <td>Processor architecture</td>
+        <td>@RuntimeInformation.OSArchitecture</td>
+    </tr>
+    <tr>
+        <td>CPU cores</td>
+        <td>@Environment.ProcessorCount</td>
+    </tr>
+    <tr>
+        <td>Containerized</td>
+        <td>@(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") is null ? "false" : "true")</td>
+    </tr>
+    <tr>
+        <td>User</td>
+        <td>@(Environment.UserName)</td>
+    </tr>
+    @if (env.MemoryLimit > 0)
+    {
+        <tr>
+            <td>cgroup memory limit</td>
+            <td>@env.MemoryLimit (@GetInBestUnit(env.MemoryLimit))</td>
+        </tr>
+        <tr>
+            <td>cgroup memory usage</td>
+            <td>@env.MemoryUsage (@GetInBestUnit(env.MemoryUsage))</td>
+        </tr>
+    }
+    <tr>
+        <td>Memory, total available GC memory</td>
+        <td>@env.TotalAvailableMemoryBytes (@GetInBestUnit(env.TotalAvailableMemoryBytes))</td>
+    </tr>
+    <tr>
+        <td>Host name</td>
+        <td>@hostName</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">Server IP address</td>
+        <td>
+            @{
+                foreach (var ip in ipList)
+                {
+                    @ip
+                    <br />
+                }
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td>ConnectionString</td>
+        <td>@ConnectionString</td>
+    </tr>
+    <tr>
+        <td>Txt</td>
+        <td>@Txt</td>
+    </tr>
+</MudSimpleTable>
+
+<MudAlert Severity="Severity.Info"
+          Variant="Variant.Outlined">
+    <MudButton Color="Color.Primary"
+               Disabled="@_processing"
+               Variant="Variant.Filled"
+               OnClick="CanConnectButtonOnClick">
+        @if (_processing)
+        {
+            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+        }
+        CanConnect to DB: @CanConnectText
+    </MudButton>
+</MudAlert>

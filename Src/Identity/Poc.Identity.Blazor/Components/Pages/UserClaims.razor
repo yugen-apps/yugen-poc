@@ -1,0 +1,28 @@
+@page "/user-claims"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>User Claims</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">User Claims</MudText>
+<MudDivider />
+
+@if (User != null)
+{     
+    <MudList T="string">
+        <MudListItem>
+            <AvatarContent>
+                <MudAvatar>
+                    <MudImage Src="@Avatar" />
+                </MudAvatar>
+            </AvatarContent>
+            <ChildContent>
+                You are logged in as: @GivenName @Surname
+            </ChildContent>
+        </MudListItem>
+        @foreach (var claim in claims)
+        {
+            <MudListItem Text="@claim.Type" SecondaryText="@claim.Value" />
+        }
+    </MudList>
+}
