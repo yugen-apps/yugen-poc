@@ -1,0 +1,28 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<MudText Typo="Typo.h2" GutterBottom="true">Welcome to .NET!</MudText>
+<MudDivider />
+
+<MudText Typo="Typo.h3" GutterBottom="true">System Info</MudText>
+<MudList T="string">
+    @foreach (var item in _systemInfos)
+    {
+        <MudListItem Text="@item.Key" SecondaryText="@item.Value" />
+    }
+</MudList>
+
+<MudAlert Severity="Severity.Info"
+          Variant="Variant.Outlined">
+    <MudButton Color="Color.Primary"
+               Disabled="@Processing"
+               Variant="Variant.Filled"
+               OnClick="CanConnectButtonOnClick">
+        @if (Processing)
+        {
+            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+        }
+        CanConnect to DB: @CanConnectText
+    </MudButton>
+</MudAlert>

@@ -1,0 +1,14 @@
+﻿@page "/Graph"
+
+<PageTitle>Graph</PageTitle>
+
+<MudText Typo="Typo.h3">Graph</MudText>
+
+<MudDivider />
+
+<MudList T="string">
+    @foreach (var item in _list)
+    {
+        <MudListItem Text="@item.Key" SecondaryText="@item.Value" />
+    }
+</MudList>

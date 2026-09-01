@@ -1,0 +1,41 @@
+name: Poc.Lib.WinUI Build, Pack and Publish Nuget
+
+on:
+  push:
+    branches:
+      - release/*
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  packages: write
+
+jobs:
+  setup_stage:
+    uses: yugen-apps/yugen-templates/.github/workflows/setup.yml@main
+
+  build_pack_stage:    
+    uses: yugen-apps/yugen-templates/.github/workflows/build-dotnet-pack.yml@main
+    needs: [ setup_stage ]
+    # secrets: inherit
+    with:
+      project_name: "Poc.Lib.WinUI"
+      project_version: "${{ needs.setup_stage.outputs.major_minor_patch }}"
+
+  deploy_github_package_stage:
+    uses: yugen-apps/yugen-templates/.github/workflows/deploy-github-package.yml@main
+    needs: [ build_pack_stage ]
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      artifact_name: "Poc.Lib.WinUI"
+
+  # deploy_nuget_stage:
+  #   uses: yugen-apps/yugen-templates/.github/workflows/deploy-nuget.yml@main
+  #   needs: [ build_pack_stage ]
+  #   secrets:
+  #     # azure_ad_application_client_id: ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }}
+  #     nuget_api_key: ${{ secrets.NUGET_API_KEY }}
+  #   with:
+  #     artifact_name: "Poc.Lib.WinUI"
