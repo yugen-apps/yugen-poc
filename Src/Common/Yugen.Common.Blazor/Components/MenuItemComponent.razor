@@ -1,0 +1,20 @@
+﻿@if (MenuItem.Policy == null)
+{
+    <MudNavLink Href="@MenuItem.Href"
+                Icon="@MenuItem.Icon"
+                Match="NavLinkMatch.Prefix"
+                Target="@MenuItem.Target">
+        @MenuItem.Title
+    </MudNavLink>
+}
+else
+{
+    <AuthorizeView Policy="@MenuItem.Policy">
+        <MudNavLink Href="@MenuItem.Href"
+                    Icon="@MenuItem.Icon"
+                    Match="NavLinkMatch.Prefix"
+                    Target="@MenuItem.Target">
+            @MenuItem.Title
+        </MudNavLink>
+    </AuthorizeView>
+}

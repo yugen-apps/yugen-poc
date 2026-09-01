@@ -1,0 +1,29 @@
+on:
+  workflow_call:
+    inputs:
+      docker_registry:
+        required: true
+        type: string
+      docker_namespace:
+        required: true
+        type: string
+      docker_repository:
+        required: true
+        type: string
+      docker_compose_file:
+        required: true
+        type: string
+
+jobs:
+  setup_stage:
+    uses: yugen-apps/yugen-templates/.github/workflows/setup.yml@main
+
+  build_web_app_stage:    
+    uses: yugen-apps/yugen-templates/.github/workflows/build-docker-compose-push.yml@main
+    needs: [ setup_stage ]
+    with:
+      docker_registry: "${{ inputs.docker_registry }}"
+      docker_namespace: "${{ inputs.docker_namespace }}"
+      docker_repository: "${{ inputs.docker_repository }}"
+      docker_tag: "${{ needs.setup_stage.outputs.major_minor_patch }}"
+      docker_compose_file: "${{ inputs.docker_compose_file }}"

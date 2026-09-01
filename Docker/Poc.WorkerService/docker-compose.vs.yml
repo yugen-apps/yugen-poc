@@ -1,0 +1,8 @@
+name: poc-workerservice
+
+services:
+  poc-workerservice:
+    labels:
+      com.microsoft.visual-studio.project-name: "Poc.WorkerService"
+    environment:
+      - DOTNET_ENVIRONMENT=Development

@@ -1,0 +1,12 @@
+name: poc-workerservice
+
+services:
+  poc-workerservice:
+    image: poc-workerservice
+    container_name: poc-workerservice
+    build:
+      context: ../../
+      dockerfile: ./Docker/Dockerfile
+      args:
+        - PROJECT_DIR=./Src/WorkerService
+        - PROJECT_NAME=Poc.WorkerService

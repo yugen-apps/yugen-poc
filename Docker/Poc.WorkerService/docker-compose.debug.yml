@@ -1,0 +1,17 @@
+services:
+  poc-workerservice:
+    # [HOST[:PORT]]
+    # REGISTRY/NAMESPACE/REPOSITORY[:TAG]
+    # image: ghcr.io/yugen-apps/poc-workerservice:latest
+    image: poc-workerservice:latest
+    container_name: poc-workerservice
+    # entrypoint: ["dotnet", "Poc.WorkerService.dll"]
+    build:
+      context: ../../
+      dockerfile: ./Docker/Dockerfile
+      args:
+        - PROJECT_DIR=./Src/WorkerService
+        - PROJECT_NAME=Poc.WorkerService
+      # tags:
+      #   - ghcr.io/yugen-apps/poc-workerservice:latest
+      #   - ghcr.io/yugen-apps/poc-workerservice:${VERSION:-latest}

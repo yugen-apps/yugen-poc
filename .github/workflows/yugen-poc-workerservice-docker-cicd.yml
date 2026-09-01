@@ -1,0 +1,22 @@
+name: yugen-poc-workerservice-docker-cicd
+
+on:
+  push:
+    branches:
+      - release/*
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+  packages: write
+
+jobs:
+  build_and_deploy:
+    uses: "./.github/workflows/build-and-deploy.yml"
+    secrets: inherit
+    with:
+      docker_registry: "ghcr.io"
+      docker_namespace: "yugen-apps"
+      docker_repository: "poc-workerservice"
+      docker_compose_file: "./Docker/Poc.WorkerService/docker-compose.yml"

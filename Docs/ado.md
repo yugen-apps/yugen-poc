@@ -1,0 +1,3 @@
+- [schema](https://dev.azure.com/kortext/_apis/distributedtask/yamlschema) > save in .vscode/my-schema.json.
+- [project details](https://dev.azure.com/Kortext/_apis/projects/KLP)
+- [version](https://dev.azure.com/Kortext/_home/about)

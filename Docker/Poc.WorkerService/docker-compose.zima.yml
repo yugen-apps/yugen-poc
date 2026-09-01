@@ -1,0 +1,13 @@
+name: poc-workerservice
+
+services:
+  poc-workerservice:
+    image: ghcr.io/yugen-apps/poc-workerservice:latest
+    container_name: poc-workerservice
+x-casaos:
+  title:
+    custom: poc-workerservice
+  main: poc-workerservice
+  scheme: http
+  hostname: ""
+  index: /
