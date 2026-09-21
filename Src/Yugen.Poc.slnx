@@ -9,6 +9,7 @@
     <File Path="../Docs/identity.md" />
     <File Path="../Docs/redis.md" />
     <File Path="../Docs/windows.md" />
+    <File Path="..\Docs\testing.md" />
   </Folder>
   <Folder Name="/.Solution Items/">
     <File Path="../.dockerignore" />

@@ -1,14 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Poc.Common.Spectre.Commands;
 using Poc.Common.Spectre.Extensions;
 using Poc.Common.Spectre.Helpers;
 using Poc.ConsoleApp.Commands;
+using Poc.ConsoleApp.Commands.CQRS;
 using Poc.ConsoleApp.Commands.Grouping;
 using Poc.ConsoleApp.Commands.Lifetime;
 using Spectre.Console.Cli;
 using System;
+using System.Data.Common;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Poc.ConsoleApp;
 
@@ -44,6 +49,15 @@ public class Program
     {
         var builder = Host.CreateApplicationBuilder(args);
 
+        // ApplicationDbContext
+        var connection = new SqliteConnection("Filename=:memory:");
+        connection.Open();
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlite(connection), ServiceLifetime.Singleton);
+        builder.Services.AddScoped<IDbContext>(serviceProvider => 
+            serviceProvider.GetRequiredService<ApplicationDbContext>());
+        builder.Services.AddScoped<ICommandHandler<CompleteTodoCommand>, CompleteTodoCommandHandler>();
+
         // Add Services
         builder.Services.AddTransient<IOperationTransient, Operation>();
         builder.Services.AddScoped<IOperationScoped, Operation>();
@@ -56,6 +70,7 @@ public class Program
         builder.Services.AddCommand<GroupingCommand>("Grouping");
         builder.Services.AddCommand<LifetimeCommand>("Lifetime");
         builder.Services.AddCommand<TaskCommand>("Task");
+        builder.Services.AddCommand<CqrsCommand>("Cqrs");
         builder.Services.AddCommand<ExitCommand>("Exit");
 
         // The standard call save for the commands will be pre-added & configured
@@ -70,6 +85,11 @@ public class Program
         });
 
         var app = builder.Build();
+
+
+        using var scope = app.Services.CreateScope();
+        var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        applicationDbContext.Database.EnsureCreated();
 
         await app.RunAsync();
     }

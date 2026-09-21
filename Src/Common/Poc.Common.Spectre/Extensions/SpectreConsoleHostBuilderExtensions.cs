@@ -45,7 +45,7 @@ public static class SpectreConsoleHostBuilderExtensions
         builder.Services.AddHostedService<SpectreConsoleWorker>();
         builder.Services.AddSingleton(x => AnsiConsole.Console);
         builder.Services.AddSingleton<IHostLifetime, ConsoleLifetime>();
-        builder.Services.AddSingleton<CommandRegistry>();
+        builder.Services.AddScoped<CommandRegistry>();
 
         return builder;
     }
