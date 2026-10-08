@@ -1,5 +1,5 @@
-using Poc.Redis.Common.Services;
 using Microsoft.Extensions.Logging;
+using Poc.Redis.Common.Services;
 using StackExchange.Redis;
 using System;
 using System.Text.Json;
@@ -8,46 +8,46 @@ namespace Poc.Redis.Subscriber.Services;
 
 public class SubsriberService
 {
-    private readonly IRedisService _redisService;
-    private readonly ILogger<SubsriberService> _logger;
+	private readonly IRedisService _redisService;
+	private readonly ILogger<SubsriberService> _logger;
 
-    public SubsriberService(
-        IRedisService redisService,
-        ILogger<SubsriberService> logger)
-    {
-        _redisService = redisService;
-        _logger = logger;
-    }
+	public SubsriberService(
+		IRedisService redisService,
+		ILogger<SubsriberService> logger)
+	{
+		_redisService = redisService;
+		_logger = logger;
+	}
 
-    public void Init()
-    {
-        _redisService.Subscribe(OnMessage);
-    }
+	public void Init()
+	{
+		_redisService.Subscribe(OnMessage);
+	}
 
-    private void OnMessage(RedisChannel channel, RedisValue value)
-    {
-        try
-        {
-            var message = JsonSerializer.Deserialize<AppMessage>(value.ToString());
+	private void OnMessage(RedisChannel channel, RedisValue value)
+	{
+		try
+		{
+			var message = JsonSerializer.Deserialize<AppMessage>(value.ToString());
 
-            _logger.LogInformation($"Message received from {channel} " +
-                $"Id: {message?.RedisId} " +
-                $"Content: {message?.Content} " +
-                $"Sender: {message?.Sender}");
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("OnMessage exception: {Message}", ex.Message);
-        }
-    }
+			_logger.LogInformation($"Message received from {channel} " +
+				$"Id: {message?.RedisId} " +
+				$"Content: {message?.Content} " +
+				$"Sender: {message?.Sender}");
+		}
+		catch (Exception ex)
+		{
+			_logger.LogError("OnMessage exception: {Message}", ex.Message);
+		}
+	}
 
-    private void Add()
-    {
+	private void Add()
+	{
 
-    }
+	}
 
-    private void Get()
-    {
+	private void Get()
+	{
 
-    }
+	}
 }

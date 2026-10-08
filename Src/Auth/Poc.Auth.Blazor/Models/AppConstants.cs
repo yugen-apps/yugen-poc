@@ -2,5 +2,5 @@
 
 public static class AppConstants
 {
-    public const string BaseUrl = "https://localhost:8080";
+	public const string BaseUrl = "https://localhost:8080";
 }

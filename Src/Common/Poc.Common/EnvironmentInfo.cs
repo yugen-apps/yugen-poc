@@ -8,105 +8,105 @@ namespace Poc.Common;
 
 public readonly struct EnvironmentInfo
 {
-    private const double Mebi = 1024 * 1024;
-    private const double Gibi = Mebi * 1024;
+	private const double Mebi = 1024 * 1024;
+	private const double Gibi = Mebi * 1024;
 
-    public EnvironmentInfo()
-    {
-        var gcInfo = GC.GetGCMemoryInfo();
-        TotalAvailableMemoryBytes = gcInfo.TotalAvailableMemoryBytes;
+	public EnvironmentInfo()
+	{
+		var gcInfo = GC.GetGCMemoryInfo();
+		TotalAvailableMemoryBytes = gcInfo.TotalAvailableMemoryBytes;
 
-        if (!OperatingSystem.IsLinux())
-        {
-            return;
-        }
+		if (!OperatingSystem.IsLinux())
+		{
+			return;
+		}
 
-        string[] memoryLimitPaths =
-        [
-            "/sys/fs/cgroup/memory.max",
-            "/sys/fs/cgroup/memory.high",
-            "/sys/fs/cgroup/memory.low",
-            "/sys/fs/cgroup/memory/memory.limit_in_bytes"
-        ];
+		string[] memoryLimitPaths =
+		[
+			"/sys/fs/cgroup/memory.max",
+			"/sys/fs/cgroup/memory.high",
+			"/sys/fs/cgroup/memory.low",
+			"/sys/fs/cgroup/memory/memory.limit_in_bytes"
+		];
 
-        string[] currentMemoryPaths =
-        [
-            "/sys/fs/cgroup/memory.current",
-            "/sys/fs/cgroup/memory/memory.usage_in_bytes"
-        ];
+		string[] currentMemoryPaths =
+		[
+			"/sys/fs/cgroup/memory.current",
+			"/sys/fs/cgroup/memory/memory.usage_in_bytes"
+		];
 
-        MemoryLimit = GetBestValue(memoryLimitPaths);
-        MemoryUsage = GetBestValue(currentMemoryPaths);
-    }
+		MemoryLimit = GetBestValue(memoryLimitPaths);
+		MemoryUsage = GetBestValue(currentMemoryPaths);
+	}
 
-    public string RuntimeVersion => RuntimeInformation.FrameworkDescription;
+	public string RuntimeVersion => RuntimeInformation.FrameworkDescription;
 
-    public string OsVersion => RuntimeInformation.OSDescription;
+	public string OsVersion => RuntimeInformation.OSDescription;
 
-    public string CpuArchitecture => RuntimeInformation.OSArchitecture.ToString();
+	public string CpuArchitecture => RuntimeInformation.OSArchitecture.ToString();
 
-    public int CpuCores => Environment.ProcessorCount;
+	public int CpuCores => Environment.ProcessorCount;
 
-    public bool Containerized => Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") is not null;
+	public bool Containerized => Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") is not null;
 
-    public string UserName => Environment.UserName;
+	public string UserName => Environment.UserName;
 
-    public long MemoryLimit { get; }
+	public long MemoryLimit { get; }
 
-    // cgroup memory limit
-    public string MemoryLimitString => GetInBestUnit(MemoryLimit);
+	// cgroup memory limit
+	public string MemoryLimitString => GetInBestUnit(MemoryLimit);
 
-    public long MemoryUsage { get; }
+	public long MemoryUsage { get; }
 
-    //	cgroup memory usage
-    public string MemoryUsageString => GetInBestUnit(MemoryUsage);
+	//	cgroup memory usage
+	public string MemoryUsageString => GetInBestUnit(MemoryUsage);
 
-    public long TotalAvailableMemoryBytes { get; }
+	public long TotalAvailableMemoryBytes { get; }
 
-    // Memory, total available GC memory
-    public string TotalAvailableMemoryBytesString => GetInBestUnit(TotalAvailableMemoryBytes);
+	// Memory, total available GC memory
+	public string TotalAvailableMemoryBytesString => GetInBestUnit(TotalAvailableMemoryBytes);
 
-    public string HostName => Dns.GetHostName();
+	public string HostName => Dns.GetHostName();
 
-    public async Task<IPAddress[]> IpList() =>
-        await Dns.GetHostAddressesAsync(HostName);
+	public async Task<IPAddress[]> IpList() =>
+		await Dns.GetHostAddressesAsync(HostName);
 
-    public async Task<string> IpListString() =>
-        string.Join(", ", await IpList());
+	public async Task<string> IpListString() =>
+		string.Join(", ", await IpList());
 
-    private static long GetBestValue(string[] paths)
-    {
-        foreach (var path in paths)
-        {
-            if (Path.Exists(path) &&
-                long.TryParse(File.ReadAllText(path), out var result))
-            {
-                return result;
-            }
-        }
+	private static long GetBestValue(string[] paths)
+	{
+		foreach (var path in paths)
+		{
+			if (Path.Exists(path) &&
+				long.TryParse(File.ReadAllText(path), out var result))
+			{
+				return result;
+			}
+		}
 
-        return 0;
-    }
+		return 0;
+	}
 
-    private static string GetInBestUnit(long size)
-    {
-        if (size == 0)
-        {
-            return "0";
-        }
-        if (size < Mebi)
-        {
-            return $"{size} bytes";
-        }
-        else if (size < Gibi)
-        {
-            var mebibytes = size / Mebi;
-            return $"{mebibytes:N2} MiB";
-        }
-        else
-        {
-            var gibibytes = size / Gibi;
-            return $"{gibibytes:N2} GiB";
-        }
-    }
+	private static string GetInBestUnit(long size)
+	{
+		if (size == 0)
+		{
+			return "0";
+		}
+		if (size < Mebi)
+		{
+			return $"{size} bytes";
+		}
+		else if (size < Gibi)
+		{
+			var mebibytes = size / Mebi;
+			return $"{mebibytes:N2} MiB";
+		}
+		else
+		{
+			var gibibytes = size / Gibi;
+			return $"{gibibytes:N2} GiB";
+		}
+	}
 }

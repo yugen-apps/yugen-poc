@@ -12,53 +12,53 @@ namespace Poc.SignalR.Server;
 
 public static class Program
 {
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+	public static void Main(string[] args)
+	{
+		var builder = WebApplication.CreateBuilder(args);
 
-        // Server
-        builder.Services.AddSignalR();
-        builder.Services.AddHostedService<ProducerWorker>();
+		// Server
+		builder.Services.AddSignalR();
+		builder.Services.AddHostedService<ProducerWorker>();
 
-        var app = builder.Build();
+		var app = builder.Build();
 
-        // Server
-        app.MapHub<ChatCLientHub>("/ChatCLientHub");
+		// Server
+		app.MapHub<ChatCLientHub>("/ChatCLientHub");
 
-        app.Run();
-    }
+		app.Run();
+	}
 }
 
 public class ProducerWorker : BackgroundService
 {
-    private readonly IHubContext<ChatCLientHub, IChatClient> _hubContext;
-    private readonly ILogger<ProducerWorker> _logger;
+	private readonly IHubContext<ChatCLientHub, IChatClient> _hubContext;
+	private readonly ILogger<ProducerWorker> _logger;
 
-    public ProducerWorker(
-        IHubContext<ChatCLientHub, IChatClient> hubContext,
-        ILogger<ProducerWorker> logger)
-    {
-        _hubContext = hubContext;
-        _logger = logger;
-    }
+	public ProducerWorker(
+		IHubContext<ChatCLientHub, IChatClient> hubContext,
+		ILogger<ProducerWorker> logger)
+	{
+		_hubContext = hubContext;
+		_logger = logger;
+	}
 
-    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
-    {
-        System.Console.WriteLine($"{nameof(ProducerWorker)} Started");
+	protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+	{
+		System.Console.WriteLine($"{nameof(ProducerWorker)} Started");
 
-        var group = _hubContext.Clients.Group("SignalR Users");
+		var group = _hubContext.Clients.Group("SignalR Users");
 
-        while (!ChatCLientHub.IsConnected)
-        {
-            await Task.Delay(100);
-        }
+		while (!ChatCLientHub.IsConnected)
+		{
+			await Task.Delay(100);
+		}
 
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            System.Console.WriteLine("Message:");
-            var message = System.Console.ReadLine() ?? string.Empty;
+		while (!cancellationToken.IsCancellationRequested)
+		{
+			System.Console.WriteLine("Message:");
+			var message = System.Console.ReadLine() ?? string.Empty;
 
-            await _hubContext.Clients.All.ReceiveMessage(message);
-        }
-    }
+			await _hubContext.Clients.All.ReceiveMessage(message);
+		}
+	}
 }

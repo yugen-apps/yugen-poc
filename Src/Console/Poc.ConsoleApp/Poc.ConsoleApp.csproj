@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Common\Poc.Common.Spectre\Poc.Common.Spectre.csproj" />
+	  <ProjectReference Include="..\..\Shared\Poc.Shared\Poc.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -11,67 +11,67 @@ namespace Poc.SignalR.Client;
 
 public static class Program
 {
-    public static void Main(string[] args)
-    {
-        var builder = Host.CreateApplicationBuilder(args);
+	public static void Main(string[] args)
+	{
+		var builder = Host.CreateApplicationBuilder(args);
 
-        builder.Services.AddHostedService<ConsumerWorker>();
+		builder.Services.AddHostedService<ConsumerWorker>();
 
-        var host = builder.Build();
-        host.Run();
-    }
+		var host = builder.Build();
+		host.Run();
+	}
 }
 
 public class ConsumerWorker : BackgroundService
 {
-    private readonly ILogger<ConsumerWorker> _logger;
-    private readonly HubConnection _hubConnection;
+	private readonly ILogger<ConsumerWorker> _logger;
+	private readonly HubConnection _hubConnection;
 
-    public ConsumerWorker(
-        ILogger<ConsumerWorker> logger)
-    {
-        _logger = logger;
+	public ConsumerWorker(
+		ILogger<ConsumerWorker> logger)
+	{
+		_logger = logger;
 
-        _hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:5001/ChatCLientHub")
-            .Build();
+		_hubConnection = new HubConnectionBuilder()
+			.WithUrl("https://localhost:5001/ChatCLientHub")
+			.Build();
 
-        _hubConnection.On<string>(nameof(IChatClient.ReceiveMessage), OnReceiveMessage);
+		_hubConnection.On<string>(nameof(IChatClient.ReceiveMessage), OnReceiveMessage);
 
-        _hubConnection.On("GetMessage", async () =>
-        {
-            Console.WriteLine("Enter message:");
-            var message = await Console.In.ReadLineAsync();
-            return message;
-        });
-    }
+		_hubConnection.On("GetMessage", async () =>
+		{
+			Console.WriteLine("Enter message:");
+			var message = await Console.In.ReadLineAsync();
+			return message;
+		});
+	}
 
-    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
-    {
-        Console.WriteLine($"{nameof(ConsumerWorker)} Started");
+	protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+	{
+		Console.WriteLine($"{nameof(ConsumerWorker)} Started");
 
-        //System.Console.WriteLine("Press any key");
-        //System.Console.ReadLine();
+		//System.Console.WriteLine("Press any key");
+		//System.Console.ReadLine();
 
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            try
-            {
-                await _hubConnection.StartAsync(cancellationToken);
-                Console.WriteLine("Connected");
-                var message = await _hubConnection.InvokeAsync<string>("WaitForMessage", _hubConnection.ConnectionId);
+		while (!cancellationToken.IsCancellationRequested)
+		{
+			try
+			{
+				await _hubConnection.StartAsync(cancellationToken);
+				Console.WriteLine("Connected");
+				var message = await _hubConnection.InvokeAsync<string>("WaitForMessage", _hubConnection.ConnectionId);
 
-                break;
-            }
-            catch
-            {
-                await Task.Delay(1000, cancellationToken);
-            }
-        }
-    }
+				break;
+			}
+			catch
+			{
+				await Task.Delay(1000, cancellationToken);
+			}
+		}
+	}
 
-    private void OnReceiveMessage(string message)
-    {
-        Console.WriteLine($"OnReceiveMessage: {message}");
-    }
+	private void OnReceiveMessage(string message)
+	{
+		Console.WriteLine($"OnReceiveMessage: {message}");
+	}
 }

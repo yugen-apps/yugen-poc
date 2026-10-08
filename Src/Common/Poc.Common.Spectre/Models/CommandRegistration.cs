@@ -10,8 +10,8 @@ namespace Poc.Common.Spectre.Models;
 /// <param name="Name"></param>
 public abstract record CommandRegistration(Type CommandType, string Name)
 {
-    /// <summary>
-    /// </summary>
-    /// <param name="configuration"></param>
-    public abstract void Configure(IConfigurator configuration);
+	/// <summary>
+	/// </summary>
+	/// <param name="configuration"></param>
+	public abstract void Configure(IConfigurator configuration);
 }

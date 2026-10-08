@@ -10,28 +10,28 @@ namespace Poc.Auth.Blazor.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void ConfigureServices(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddScoped<AppGraphService>();
-        services.AddScoped<UserGraphService>();
-        services.AddScoped<SystemInfoService>();
-        services.AddScoped<WebHostInfoService>();
-    }
+	public static void ConfigureServices(
+		this IServiceCollection services,
+		IConfiguration configuration)
+	{
+		services.AddScoped<AppGraphService>();
+		services.AddScoped<UserGraphService>();
+		services.AddScoped<SystemInfoService>();
+		services.AddScoped<WebHostInfoService>();
+	}
 
-    public static void InitializeServices(this IServiceProvider services)
-    {
-        using var scope = services.CreateScope();
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<AzureIdentityEventTracker>>();
-        using AzureIdentityEventTracker tracker = new(logger);
-    }
+	public static void InitializeServices(this IServiceProvider services)
+	{
+		using var scope = services.CreateScope();
+		var logger = scope.ServiceProvider.GetRequiredService<ILogger<AzureIdentityEventTracker>>();
+		using AzureIdentityEventTracker tracker = new(logger);
+	}
 
-    //IConfiguration
-    //var appConfig = configuration.Get<AppConfig>();
-    //IConfigurationSection section = builder.Configuration.GetSection("DownstreamApi");        
-    //string? test = configuration.GetValue<string>("Test");
+	//IConfiguration
+	//var appConfig = configuration.Get<AppConfig>();
+	//IConfigurationSection section = builder.Configuration.GetSection("DownstreamApi");        
+	//string? test = configuration.GetValue<string>("Test");
 
-    //IOptions
-    //services.Configure<EntraIdOptions>(configuration.GetSection("EntraId"));
+	//IOptions
+	//services.Configure<EntraIdOptions>(configuration.GetSection("EntraId"));
 }

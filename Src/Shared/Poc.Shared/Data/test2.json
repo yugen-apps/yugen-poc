@@ -1,0 +1,9 @@
+{
+  "name": "panda",
+  "testString": "value",
+  "testInt": 1,
+  "testArray": [
+    "array1",
+    "array2"
+  ]
+}

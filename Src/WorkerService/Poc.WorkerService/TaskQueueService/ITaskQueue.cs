@@ -6,9 +6,9 @@ namespace Poc.WorkerService.TaskQueueService;
 
 public interface ITaskQueue
 {
-    int Count { get; }
+	int Count { get; }
 
-    ValueTask QueueAsync(Func<CancellationToken, ValueTask> item);
+	ValueTask QueueAsync(Func<CancellationToken, ValueTask> item);
 
-    ValueTask<Func<CancellationToken, ValueTask>> DequeueAsync(CancellationToken cancellationToken);
+	ValueTask<Func<CancellationToken, ValueTask>> DequeueAsync(CancellationToken cancellationToken);
 }

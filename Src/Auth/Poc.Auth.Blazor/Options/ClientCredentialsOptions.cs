@@ -2,13 +2,13 @@
 
 public class ClientCredentialsOptions
 {
-    public string? ClientSecret { get; set; }
+	public string? ClientSecret { get; set; }
 
-    public string? ManagedIdentityClientId { get; set; }
+	public string? ManagedIdentityClientId { get; set; }
 
-    public string? SourceType { get; set; }
+	public string? SourceType { get; set; }
 
-    public string? TokenExchangeUrl { get; set; }
+	public string? TokenExchangeUrl { get; set; }
 }
 
 /*

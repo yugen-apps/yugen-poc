@@ -7,11 +7,11 @@ namespace Poc.Ef.Aspnet.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void ConfigureServices(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddScoped<SystemInfoService>();
-        services.AddScoped<WebHostInfoService>();
-    }
+	public static void ConfigureServices(
+		this IServiceCollection services,
+		IConfiguration configuration)
+	{
+		services.AddScoped<SystemInfoService>();
+		services.AddScoped<WebHostInfoService>();
+	}
 }

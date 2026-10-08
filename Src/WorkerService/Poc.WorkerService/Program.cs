@@ -6,30 +6,30 @@ namespace Poc.WorkerService;
 
 public class Program
 {
-    public static void Main(string[] args)
-    {
-        var builder = Host.CreateApplicationBuilder(args);
+	public static void Main(string[] args)
+	{
+		var builder = Host.CreateApplicationBuilder(args);
 
-        //builder.Services.AddHostedService<TimerBasedService>();
+		//builder.Services.AddHostedService<TimerBasedService>();
 
-        //builder.Services.Configure<BackgroundJobOptions>(builder.Configuration.GetSection("BackgroundJobs"));
-        //builder.Services.AddSingleton<IMessageQueue<string>, MessageQueue<string>>();
-        //builder.Services.AddHostedService<QueueProducerService>();
-        //builder.Services.AddHostedService<QueueProcessorService>();
+		//builder.Services.Configure<BackgroundJobOptions>(builder.Configuration.GetSection("BackgroundJobs"));
+		//builder.Services.AddSingleton<IMessageQueue<string>, MessageQueue<string>>();
+		//builder.Services.AddHostedService<QueueProducerService>();
+		//builder.Services.AddHostedService<QueueProcessorService>();
 
-        builder.Services.AddSingleton<ITaskQueue>(_ =>
-        {
-            if (!int.TryParse(builder.Configuration["QueueCapacity"], out var queueCapacity))
-            {
-                queueCapacity = 100;
-            }
+		builder.Services.AddSingleton<ITaskQueue>(_ =>
+		{
+			if (!int.TryParse(builder.Configuration["QueueCapacity"], out var queueCapacity))
+			{
+				queueCapacity = 100;
+			}
 
-            return new TaskQueue(queueCapacity);
-        });
-        builder.Services.AddHostedService<TaskQueueProducerService>();
-        builder.Services.AddHostedService<TaskQueueProcessorService>();
+			return new TaskQueue(queueCapacity);
+		});
+		builder.Services.AddHostedService<TaskQueueProducerService>();
+		builder.Services.AddHostedService<TaskQueueProcessorService>();
 
-        var host = builder.Build();
-        host.Run();
-    }
+		var host = builder.Build();
+		host.Run();
+	}
 }

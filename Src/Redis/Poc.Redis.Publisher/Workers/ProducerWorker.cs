@@ -10,35 +10,35 @@ namespace Poc.Redis.Publisher.Workers;
 
 public class ProducerWorker : BackgroundService
 {
-    private static readonly string ConnectionString = "localhost:6379";
-    private static readonly ConnectionMultiplexer Connection =
-        ConnectionMultiplexer.Connect(ConnectionString);
-    private readonly ILogger<ProducerWorker> _logger;
-    private const string Channel = "messages";
+	private static readonly string ConnectionString = "localhost:6379";
+	private static readonly ConnectionMultiplexer Connection =
+		ConnectionMultiplexer.Connect(ConnectionString);
+	private readonly ILogger<ProducerWorker> _logger;
+	private const string Channel = "messages";
 
-    public ProducerWorker(ILogger<ProducerWorker> logger)
-    {
-        _logger = logger;
-    }
+	public ProducerWorker(ILogger<ProducerWorker> logger)
+	{
+		_logger = logger;
+	}
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        var subscriber = Connection.GetSubscriber();
+	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+	{
+		var subscriber = Connection.GetSubscriber();
 
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            // var message = new Message(Guid.NewGuid(), DateTime.UtcNow);
+		while (!stoppingToken.IsCancellationRequested)
+		{
+			// var message = new Message(Guid.NewGuid(), DateTime.UtcNow);
 
-            // var json = JsonSerializer.Serialize(message);
+			// var json = JsonSerializer.Serialize(message);
 
-            var message = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+			var message = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
 
-            await subscriber.PublishAsync(RedisChannel.Literal(Channel), new RedisValue(message));
+			await subscriber.PublishAsync(RedisChannel.Literal(Channel), new RedisValue(message));
 
-            _logger.LogInformation("Sending message: {Channel} - {message}", Channel, message);
+			_logger.LogInformation("Sending message: {Channel} - {message}", Channel, message);
 
-            await Task.Delay(5000, stoppingToken);
-        }
-    }
+			await Task.Delay(5000, stoppingToken);
+		}
+	}
 }
 

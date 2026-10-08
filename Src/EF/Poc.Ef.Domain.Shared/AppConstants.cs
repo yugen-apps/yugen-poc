@@ -2,5 +2,5 @@
 
 public class AppConstants
 {
-    public const int MaxNameLength = 64;
+	public const int MaxNameLength = 64;
 }

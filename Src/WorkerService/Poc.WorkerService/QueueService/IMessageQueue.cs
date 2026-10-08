@@ -5,9 +5,9 @@ namespace Poc.WorkerService.QueueService;
 
 public interface IMessageQueue<T> where T : class
 {
-    int Count { get; }
+	int Count { get; }
 
-    ValueTask QueueAsync(T message, CancellationToken cancellationToken);
+	ValueTask QueueAsync(T message, CancellationToken cancellationToken);
 
-    ValueTask<T?> DequeueAsync(CancellationToken cancellationToken);
+	ValueTask<T?> DequeueAsync(CancellationToken cancellationToken);
 }

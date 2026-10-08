@@ -10,17 +10,17 @@ namespace Poc.Common.Spectre.Models;
 /// <param name="CommandConfigurator"></param>
 /// <typeparam name="TCommand"></typeparam>
 public record CommandRegistration<TCommand>(string Name, Action<ICommandConfigurator>? CommandConfigurator = null)
-    : CommandRegistration(typeof(TCommand), Name) where TCommand : class, ICommand
+	: CommandRegistration(typeof(TCommand), Name) where TCommand : class, ICommand
 {
-    /// <summary>
-    /// </summary>
-    /// <param name="configuration"></param>
-    public override void Configure(IConfigurator configuration)
-    {
-        // Add the command to Spectre's configuration
-        var cmdConfig = configuration.AddCommand<TCommand>(Name);
+	/// <summary>
+	/// </summary>
+	/// <param name="configuration"></param>
+	public override void Configure(IConfigurator configuration)
+	{
+		// Add the command to Spectre's configuration
+		var cmdConfig = configuration.AddCommand<TCommand>(Name);
 
-        // Optionally configure the command
-        CommandConfigurator?.Invoke(cmdConfig);
-    }
+		// Optionally configure the command
+		CommandConfigurator?.Invoke(cmdConfig);
+	}
 }

@@ -14,84 +14,84 @@ namespace Poc.Common.Spectre.Extensions;
 /// </summary>
 public static class SpectreConsoleHostBuilderExtensions
 {
-    /// <summary>
-    ///     Adds a command and it's options to the service collection. Also registers the command
-    ///     to be added &amp; configured during the UseSpectreConsole call.
-    /// </summary>
-    /// <typeparam name="TCommand"></typeparam>
-    /// <param name="services"></param>
-    /// <param name="name"></param>
-    /// <param name="commandConfigurator">The configuration action applied to the command</param>
-    /// <returns></returns>
-    public static IServiceCollection AddCommand<TCommand>(this IServiceCollection services, string name,
-                                                          Action<ICommandConfigurator>? commandConfigurator = null)
-        where TCommand : class, ICommand
+	/// <summary>
+	///     Adds a command and it's options to the service collection. Also registers the command
+	///     to be added &amp; configured during the UseSpectreConsole call.
+	/// </summary>
+	/// <typeparam name="TCommand"></typeparam>
+	/// <param name="services"></param>
+	/// <param name="name"></param>
+	/// <param name="commandConfigurator">The configuration action applied to the command</param>
+	/// <returns></returns>
+	public static IServiceCollection AddCommand<TCommand>(this IServiceCollection services, string name,
+														  Action<ICommandConfigurator>? commandConfigurator = null)
+		where TCommand : class, ICommand
 
-    {
-        services.AddScoped<TCommand>();
-        services.RegisterCommand<TCommand>(name, commandConfigurator);
-        return services;
-    }
+	{
+		services.AddScoped<TCommand>();
+		services.RegisterCommand<TCommand>(name, commandConfigurator);
+		return services;
+	}
 
-    /// <summary>
-    ///     Adds the internal services to the host builder.
-    /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
-    private static HostApplicationBuilder AddInternalServices(HostApplicationBuilder builder)
-    {
-        Console.OutputEncoding = Encoding.Default;
+	/// <summary>
+	///     Adds the internal services to the host builder.
+	/// </summary>
+	/// <param name="builder"></param>
+	/// <returns></returns>
+	private static HostApplicationBuilder AddInternalServices(HostApplicationBuilder builder)
+	{
+		Console.OutputEncoding = Encoding.Default;
 
-        builder.Services.AddHostedService<SpectreConsoleWorker>();
-        builder.Services.AddSingleton(x => AnsiConsole.Console);
-        builder.Services.AddSingleton<IHostLifetime, ConsoleLifetime>();
-        builder.Services.AddSingleton<CommandRegistry>();
+		builder.Services.AddHostedService<SpectreConsoleWorker>();
+		builder.Services.AddSingleton(x => AnsiConsole.Console);
+		builder.Services.AddSingleton<IHostLifetime, ConsoleLifetime>();
+		builder.Services.AddScoped<CommandRegistry>();
 
-        return builder;
-    }
+		return builder;
+	}
 
-    /// <summary>
-    ///     Adds a entry point for a command line application with multi commands.
-    /// </summary>
-    /// <param name="builder">The host builder to configure.</param>
-    /// <param name="configureCommandApp">Configures the command line application commands.</param>
-    /// <returns>The host builder</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public static HostApplicationBuilder UseSpectreConsole(this HostApplicationBuilder builder,
-                                                           Action<IConfigurator>? configureCommandApp = null)
-    {
-        builder = builder ?? throw new ArgumentNullException(nameof(builder));
+	/// <summary>
+	///     Adds a entry point for a command line application with multi commands.
+	/// </summary>
+	/// <param name="builder">The host builder to configure.</param>
+	/// <param name="configureCommandApp">Configures the command line application commands.</param>
+	/// <returns>The host builder</returns>
+	/// <exception cref="ArgumentNullException"></exception>
+	public static HostApplicationBuilder UseSpectreConsole(this HostApplicationBuilder builder,
+														   Action<IConfigurator>? configureCommandApp = null)
+	{
+		builder = builder ?? throw new ArgumentNullException(nameof(builder));
 
-        builder.Services.AddSingleton<ICommandApp>(x =>
-        {
-            var app = new CommandApp(new CustomTypeRegistrar(builder.Services, x));
-            return app.ConfigureAppAndRegisteredCommands(x, configureCommandApp);
-        });
+		builder.Services.AddSingleton<ICommandApp>(x =>
+		{
+			var app = new CommandApp(new CustomTypeRegistrar(builder.Services, x));
+			return app.ConfigureAppAndRegisteredCommands(x, configureCommandApp);
+		});
 
-        return AddInternalServices(builder);
-    }
+		return AddInternalServices(builder);
+	}
 
-    /// <summary>
-    ///     Adds a entry point for a command line application with a default command.
-    /// </summary>
-    /// <param name="builder">The host builder to configure.</param>
-    /// <param name="configureCommandApp">Configures the command line application.</param>
-    /// <typeparam name="TDefaultCommand">The default command.</typeparam>
-    /// <returns>The host builder.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public static HostApplicationBuilder UseSpectreConsole<TDefaultCommand>(this HostApplicationBuilder builder,
-                                                                            Action<IConfigurator>? configureCommandApp = null)
-        where TDefaultCommand : class, ICommand
-    {
-        builder = builder ?? throw new ArgumentNullException(nameof(builder));
+	/// <summary>
+	///     Adds a entry point for a command line application with a default command.
+	/// </summary>
+	/// <param name="builder">The host builder to configure.</param>
+	/// <param name="configureCommandApp">Configures the command line application.</param>
+	/// <typeparam name="TDefaultCommand">The default command.</typeparam>
+	/// <returns>The host builder.</returns>
+	/// <exception cref="ArgumentNullException"></exception>
+	public static HostApplicationBuilder UseSpectreConsole<TDefaultCommand>(this HostApplicationBuilder builder,
+																			Action<IConfigurator>? configureCommandApp = null)
+		where TDefaultCommand : class, ICommand
+	{
+		builder = builder ?? throw new ArgumentNullException(nameof(builder));
 
-        builder.Services.AddSingleton<ICommandApp>(x =>
-        {
-            // Create the command app
-            var app = new CommandApp<TDefaultCommand>(new CustomTypeRegistrar(builder.Services, x));
-            return app.ConfigureAppAndRegisteredCommands(x, configureCommandApp);
-        });
+		builder.Services.AddSingleton<ICommandApp>(x =>
+		{
+			// Create the command app
+			var app = new CommandApp<TDefaultCommand>(new CustomTypeRegistrar(builder.Services, x));
+			return app.ConfigureAppAndRegisteredCommands(x, configureCommandApp);
+		});
 
-        return AddInternalServices(builder);
-    }
+		return AddInternalServices(builder);
+	}
 }

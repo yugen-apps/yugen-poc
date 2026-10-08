@@ -13,61 +13,61 @@ namespace Poc.Auth.Blazor.Components.Pages.Old;
 
 public partial class KeyVault
 {
-    private TokenCredential? _azureTokenCredential;
+	private TokenCredential? _azureTokenCredential;
 
-    [Inject]
-    public IConfiguration Configuration { get; set; } = null!;
+	[Inject]
+	public IConfiguration Configuration { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await GetSecrets();
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		await GetSecrets();
+	}
 
-    private TokenCredential GetAzureTokenCredential()
-    {
-        var entraId = Configuration.GetSection("EntraId");
-        var tenantId = entraId.GetValue<string>("TenantId");
-        var clientId = entraId.GetValue<string>("ClientId");
-        var clientSecret = entraId.GetValue<string>("ClientSecret");
+	private TokenCredential GetAzureTokenCredential()
+	{
+		var entraId = Configuration.GetSection("EntraId");
+		var tenantId = entraId.GetValue<string>("TenantId");
+		var clientId = entraId.GetValue<string>("ClientId");
+		var clientSecret = entraId.GetValue<string>("ClientSecret");
 
-        return _azureTokenCredential ??= new ClientSecretCredential(tenantId, clientId, clientSecret);
-    }
+		return _azureTokenCredential ??= new ClientSecretCredential(tenantId, clientId, clientSecret);
+	}
 
-    private async Task GetSecrets()
-    {
-        try
-        {
-            var kvUri = new Uri("https://tmp-key-vault-2.vault.azure.net/");
+	private async Task GetSecrets()
+	{
+		try
+		{
+			var kvUri = new Uri("https://tmp-key-vault-2.vault.azure.net/");
 
-            //var options = new SecretClientOptions
-            //{
-            //    Retry =
-            //        {
-            //            Delay = TimeSpan.FromSeconds(2),
-            //            MaxDelay = TimeSpan.FromSeconds(16),
-            //            MaxRetries = 5,
-            //            Mode = RetryMode.Exponential
-            //        }
-            //};
+			//var options = new SecretClientOptions
+			//{
+			//    Retry =
+			//        {
+			//            Delay = TimeSpan.FromSeconds(2),
+			//            MaxDelay = TimeSpan.FromSeconds(16),
+			//            MaxRetries = 5,
+			//            Mode = RetryMode.Exponential
+			//        }
+			//};
 
-            var secretClient = new SecretClient(kvUri, GetAzureTokenCredential());
+			var secretClient = new SecretClient(kvUri, GetAzureTokenCredential());
 
-            var propertiesOfSecrets = secretClient.GetPropertiesOfSecretsAsync();
+			var propertiesOfSecrets = secretClient.GetPropertiesOfSecretsAsync();
 
-            var allSecrets = new List<string>();
+			var allSecrets = new List<string>();
 
-            await foreach (var secretProperty in propertiesOfSecrets)
-            {
-                var response = await secretClient.GetSecretAsync(secretProperty.Name);
+			await foreach (var secretProperty in propertiesOfSecrets)
+			{
+				var response = await secretClient.GetSecretAsync(secretProperty.Name);
 
-                allSecrets.Add($"{response.Value.Name}:{response.Value.Value}");
-            }
+				allSecrets.Add($"{response.Value.Name}:{response.Value.Value}");
+			}
 
-            var secretsString = JsonSerializer.Serialize(allSecrets, new JsonSerializerOptions { WriteIndented = true });
-        }
-        catch (Exception exception)
-        {
-            var secretExceptionString = JsonSerializer.Serialize(new ExceptionInfo(exception), new JsonSerializerOptions { WriteIndented = true });
-        }
-    }
+			var secretsString = JsonSerializer.Serialize(allSecrets, new JsonSerializerOptions { WriteIndented = true });
+		}
+		catch (Exception exception)
+		{
+			var secretExceptionString = JsonSerializer.Serialize(new ExceptionInfo(exception), new JsonSerializerOptions { WriteIndented = true });
+		}
+	}
 }

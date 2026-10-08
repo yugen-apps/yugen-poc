@@ -9,6 +9,7 @@
     <File Path="../Docs/identity.md" />
     <File Path="../Docs/redis.md" />
     <File Path="../Docs/windows.md" />
+    <File Path="..\Docs\testing.md" />
   </Folder>
   <Folder Name="/.Solution Items/">
     <File Path="../.dockerignore" />
@@ -71,6 +72,9 @@
     <Project Path="Redis/Poc.Redis.Common/Poc.Redis.Common.csproj" />
     <Project Path="Redis/Poc.Redis.Publisher/Poc.Redis.Publisher.csproj" />
     <Project Path="Redis/Poc.Redis.Subscriber/Poc.Redis.Subscriber.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="Shared/Poc.Shared/Poc.Shared.csproj" Id="3c906885-2d7d-4408-80d8-8e8b9420bc31" />
   </Folder>
   <Folder Name="/SignalR/">
     <Project Path="SignalR/Poc.SignalR.Client/Poc.SignalR.Client.csproj" />
