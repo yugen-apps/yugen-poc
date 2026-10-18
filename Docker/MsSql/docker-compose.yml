@@ -1,0 +1,28 @@
+services:
+  mssql_db:
+    container_name: mssql_container
+    # command: sh -c 'chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "Password@12345#"
+    volumes:
+      - mssqlsystem:/var/opt/mssql
+      - mssqluser:/var/opt/sqlserver
+      - ./config/entrypoint.sh:/usr/src/app/entrypoint.sh
+      - ./config/init.sql:/usr/src/app/init.sql
+    working_dir: /usr/src/app
+    ports:
+      - "1433:1433"
+    networks:
+      - env_net
+    restart: unless-stopped
+
+networks:
+  env_net:
+    driver: bridge
+
+volumes:
+  mssqlsystem:
+  mssqluser:

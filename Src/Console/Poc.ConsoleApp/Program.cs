@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+using Poc.ConsoleApp.Extensions;
+using Poc.Shared.Lifetime;
+using Spectre.Console.Cli;
+using System.Threading.Tasks;
 using Yugen.Common.Spectre.Commands;
 using Yugen.Common.Spectre.Extensions;
 using Yugen.Common.Spectre.Helpers;
-using Poc.ConsoleApp.Commands;
-using Poc.ConsoleApp.Commands.Grouping;
-using Poc.ConsoleApp.Commands.Json;
-using Poc.ConsoleApp.Commands.Lifetime;
-using Spectre.Console.Cli;
-using System.Threading.Tasks;
 
 namespace Poc.ConsoleApp;
 
@@ -40,38 +37,27 @@ docker run --name app --interactive --tty --network my_macvlan_net app
 */
 public class Program
 {
-	public static async Task Main(string[] args)
-	{
-		var builder = Host.CreateApplicationBuilder(args);
+    public static async Task Main(string[] args)
+    {
+        var builder = Host.CreateApplicationBuilder(args);
 
-		// Add Services
-		builder.Services.AddTransient<IOperationTransient, Operation>();
-		builder.Services.AddScoped<IOperationScoped, Operation>();
-		builder.Services.AddSingleton<IOperationSingleton, Operation>();
-		builder.Services.AddTransient<OperationService>();
-		//builder.Services.AddSingleton<OperationService>();
+        builder.Services.AddLifetime();
 
-		builder.Services.AddCommand<DefaultCommand>("Menu", cmd => { cmd.WithDescription("Default command that show the menu"); });
-		builder.Services.AddCommand<HelloWorldCommand>("HelloWorld", cmd => { cmd.WithAlias("h"); });
-		builder.Services.AddCommand<GroupingCommand>("Grouping");
-		builder.Services.AddCommand<LifetimeCommand>("Lifetime");
-		builder.Services.AddCommand<TaskCommand>("Task");
-		builder.Services.AddCommand<JsonCommand>("Json");
-		builder.Services.AddCommand<ExitCommand>("Exit");
+        builder.Services.AddServices();
 
-		// The standard call save for the commands will be pre-added & configured
-		builder.UseSpectreConsole<DefaultCommand>(config =>
-		{
-			// All commands above are passed to config.AddCommand() by this point
+        // The standard call save for the commands will be pre-added & configured
+        builder.UseSpectreConsole<DefaultCommand>(config =>
+        {
+            // All commands above are passed to config.AddCommand() by this point
 #if DEBUG
-			config.PropagateExceptions();
-			config.ValidateExamples();
+            config.PropagateExceptions();
+            config.ValidateExamples();
 #endif
-			config.UseBasicExceptionHandler();
-		});
+            config.UseBasicExceptionHandler();
+        });
 
-		var app = builder.Build();
+        var app = builder.Build();
 
-		await app.RunAsync();
-	}
+        await app.RunAsync();
+    }
 }

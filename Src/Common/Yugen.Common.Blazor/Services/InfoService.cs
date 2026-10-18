@@ -84,12 +84,12 @@ public class InfoService : IInfoService
         }
         else if (size < Gibi)
         {
-            double mebibytes = size / Mebi;
+            var mebibytes = size / Mebi;
             return $"{mebibytes:N2} MiB";
         }
         else
         {
-            double gibibytes = size / Gibi;
+            var gibibytes = size / Gibi;
             return $"{gibibytes:N2} GiB";
         }
     }
@@ -123,7 +123,7 @@ public readonly struct EnvironmentInfo
 {
     public EnvironmentInfo()
     {
-        GCMemoryInfo gcInfo = GC.GetGCMemoryInfo();
+        var gcInfo = GC.GetGCMemoryInfo();
         TotalAvailableMemoryBytes = gcInfo.TotalAvailableMemoryBytes;
 
         if (!OperatingSystem.IsLinux())
@@ -161,10 +161,10 @@ public readonly struct EnvironmentInfo
 
     private static long GetBestValue(string[] paths)
     {
-        foreach (string path in paths)
+        foreach (var path in paths)
         {
             if (Path.Exists(path) &&
-                long.TryParse(File.ReadAllText(path), out long result))
+                long.TryParse(File.ReadAllText(path), out var result))
             {
                 return result;
             }

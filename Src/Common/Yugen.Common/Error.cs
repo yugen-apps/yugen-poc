@@ -5,27 +5,30 @@ namespace Yugen.Common;
 /// </summary>
 public sealed class Error
 {
-	/// <summary>
-	/// Initializes a new instance of the <see cref="Error"/> class.
-	/// </summary>
-	/// <param name="code">The error code.</param>
-	/// <param name="message">The error message.</param>
-	public Error(string code, string message)
-	{
-		Code = code;
-		Message = message;
-	}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Error"/> class.
+    /// </summary>
+    /// <param name="code">The error code.</param>
+    /// <param name="message">The error message.</param>
+    public Error(string code, string message)
+    {
+        Code = code;
+        Message = message;
+    }
 
-	/// <summary>
-	/// Gets the error code.
-	/// </summary>
-	public string Code { get; }
+    public Error(string message)
+    {
+        Code = string.Empty;
+        Message = message;
+    }
 
-	/// <summary>
-	/// Gets the error message.
-	/// </summary>
-	public string Message { get; }
+    /// <summary>
+    /// Gets the error code.
+    /// </summary>
+    public string Code { get; }
 
-	public static implicit operator string(Error error) =>
-		error?.Code ?? string.Empty;
+    /// <summary>
+    /// Gets the error message.
+    /// </summary>
+    public string Message { get; }
 }

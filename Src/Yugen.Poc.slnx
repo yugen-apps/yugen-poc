@@ -1,4 +1,12 @@
 <Solution>
+  <Folder Name="/.Docker/" />
+  <Folder Name="/.Docker/MsSql/">
+    <File Path="../Docker/MsSql/docker-compose.yml" />
+  </Folder>
+  <Folder Name="/.Docker/MsSql/config/">
+    <File Path="../Docker/MsSql/config/entrypoint.sh" />
+    <File Path="../Docker/MsSql/config/init.sql" />
+  </Folder>
   <Folder Name="/.Docs/">
     <File Path="../Docs/ado.md" />
     <File Path="../Docs/arm.md" />
@@ -6,6 +14,7 @@
     <File Path="../Docs/blazor.md" />
     <File Path="../Docs/cheat-sheet.md" />
     <File Path="../Docs/docker.md" />
+    <File Path="../Docs/ef.md" />
     <File Path="../Docs/identity.md" />
     <File Path="../Docs/redis.md" />
     <File Path="../Docs/windows.md" />
@@ -24,7 +33,11 @@
   <Folder Name="/Auth/">
     <Project Path="Auth/Poc.Auth.Blazor/Poc.Auth.Blazor.csproj" />
   </Folder>
+  <Folder Name="/Blazor/">
+    <Project Path="Poc.Blazor/Poc.Blazor.csproj" Id="98ec7f1a-7e68-4183-a0c9-f32b9c8ede01" />
+  </Folder>
   <Folder Name="/Common/">
+    <Project Path="Common/Yugen.Common.Blazor.Account.Domain/Yugen.Common.Blazor.Account.Domain.csproj" Id="d1755857-7fcd-4829-9bc9-88d297ace7d1" />
     <Project Path="Common/Yugen.Common.Blazor.Account/Yugen.Common.Blazor.Account.csproj" />
     <Project Path="Common/Yugen.Common.Blazor/Yugen.Common.Blazor.csproj" />
     <Project Path="Common/Yugen.Common.Data/Yugen.Common.Data.csproj" />
@@ -61,11 +74,22 @@
   </Folder>
   <Folder Name="/EF/Presentation/">
     <Project Path="EF/Poc.Ef.Api/Poc.Ef.Api.csproj" />
+    <Project Path="EF/Poc.Ef.Blazor/Poc.Ef.Blazor.csproj" />
     <Project Path="EF/Poc.Ef.WorkerService/Poc.Ef.WorkerService.csproj" />
-    <Project Path="EF/Poc.Ef.Aspnet/Poc.Ef.Aspnet.csproj" />
   </Folder>
   <Folder Name="/EF/Tests/">
     <Project Path="EF/Poc.Ef.Infrastructure.UnitTests/Poc.Ef.Infrastructure.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/Identity/" />
+  <Folder Name="/Identity/Core/">
+    <Project Path="Identity/Poc.Identity.Application/Poc.Identity.Application.csproj" Id="5e449c2d-a570-4b9b-b365-8e07a597d4f1" />
+    <Project Path="Identity/Poc.Identity.Domain/Poc.Identity.Domain.csproj" Id="09d175b0-73bd-4556-9d40-80d9d653c2ee" />
+  </Folder>
+  <Folder Name="/Identity/Infrastructure/">
+    <Project Path="Identity/Poc.Identity.Persistence/Poc.Identity.Persistence.csproj" Id="188b694b-1ba7-4169-af25-d3583adf7619" />
+  </Folder>
+  <Folder Name="/Identity/Presentation/">
+    <Project Path="Identity/Poc.Identity.Blazor/Poc.Identity.Blazor.csproj" Id="d7ba17e9-2bd2-4a1e-a972-04e0d9e3714e" />
   </Folder>
   <Folder Name="/Redis/">
     <Project Path="Redis/docker-compose/poc-redis-docker-compose.dcproj">

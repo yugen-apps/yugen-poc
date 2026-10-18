@@ -14,34 +14,34 @@ namespace Poc.Ef.WorkerService.Commands;
 
 public class GetAllToDo : AsyncCommand
 {
-	private readonly IAnsiConsole _console;
-	private readonly IQueryHandler<GetAllToDoQuery, List<TodoItem>> _handler;
-	private readonly ILogger<GetAllToDo> _logger;
+    private readonly IAnsiConsole _console;
+    private readonly IQueryHandler<GetAllToDoQuery, List<TodoItem>> _handler;
+    private readonly ILogger<GetAllToDo> _logger;
 
-	public GetAllToDo(
-		IAnsiConsole console,
-		IQueryHandler<GetAllToDoQuery, List<TodoItem>> handler,
-		ILogger<GetAllToDo> logger)
-	{
-		_console = console;
-		_handler = handler;
-		_logger = logger;
-	}
+    public GetAllToDo(
+        IAnsiConsole console,
+        IQueryHandler<GetAllToDoQuery, List<TodoItem>> handler,
+        ILogger<GetAllToDo> logger)
+    {
+        _console = console;
+        _handler = handler;
+        _logger = logger;
+    }
 
-	public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
-	{
-		_console.WriteLine("GetAllToDo...");
+    public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
+    {
+        _console.WriteLine("GetAllToDo...");
 
-		var query = new GetAllToDoQuery();
+        var query = new GetAllToDoQuery();
 
-		var result = await _handler.Handle(query, cancellationToken);
-		if (result.IsSuccess)
-		{
-			LogHelper.Log(_console, result);
-		}
+        var result = await _handler.Handle(query, cancellationToken);
+        if (result.IsSuccess)
+        {
+            LogHelper.Log(_console, result);
+        }
 
-		_console.PressAnyKey();
-		
-		return 0;
-	}
+        _console.PressAnyKey();
+
+        return 0;
+    }
 }

@@ -10,30 +10,30 @@ namespace Poc.Ef.Api;
 
 public class Program
 {
-	public static void Main(string[] args)
-	{
-		var builder = WebApplication.CreateBuilder(args);
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-		// Add services to the container.
-		builder.Services.AddApplication(builder.Configuration);
-		builder.Services.AddInfrastructure(builder.Configuration);
-		builder.Services.AddPersistence<ApplicationDbContext>(builder.Configuration);
+        // Add services to the container.
+        builder.Services.AddApplication();
+        builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddPersistence<ApplicationDbContext>(builder.Configuration);
 
-		builder.Services.AddControllers();
+        builder.Services.AddControllers();
 
-		var app = builder.Build();
+        var app = builder.Build();
 
-		// Configure the HTTP request pipeline.
-		if (app.Environment.IsDevelopment())
-		{
-		}
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+        }
 
-		app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
-		app.UseAuthorization();
+        app.UseAuthorization();
 
-		app.MapControllers();
+        app.MapControllers();
 
-		app.Run();
-	}
+        app.Run();
+    }
 }

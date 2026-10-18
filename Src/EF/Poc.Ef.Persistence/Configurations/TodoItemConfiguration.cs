@@ -9,9 +9,9 @@ namespace Poc.Ef.Persistence.Configurations;
 /// </summary>
 internal sealed class TodoItemConfiguration : IEntityTypeConfiguration<TodoItem>
 {
-	/// <inheritdoc />
-	public void Configure(EntityTypeBuilder<TodoItem> builder)
-	{
-		builder.HasKey(race => race.Id);
-	}
+    /// <inheritdoc />
+    public void Configure(EntityTypeBuilder<TodoItem> builder)
+    {
+        builder.HasKey(race => race.Id);
+    }
 }

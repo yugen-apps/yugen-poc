@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using Yugen.Common.Blazor.Account.Domain.Entities;
 using Yugen.Common.Blazor.Account.Navigation;
-using Yugen.Home.Knx.Data.Models;
 
 namespace Yugen.Common.Blazor.Account;
 

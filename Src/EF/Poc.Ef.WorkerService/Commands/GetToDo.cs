@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -13,37 +14,37 @@ namespace Poc.Ef.WorkerService.Commands;
 
 public class GetToDo : AsyncCommand
 {
-	private readonly IAnsiConsole _console;
-	private readonly IQueryHandler<GetToDoQuery, TodoItem> _handler;
-	private readonly ILogger<GetToDo> _logger;
+    private readonly IAnsiConsole _console;
+    private readonly IQueryHandler<GetToDoQuery, TodoItem> _handler;
+    private readonly ILogger<GetToDo> _logger;
 
-	public GetToDo(
-		IAnsiConsole console,
-		IQueryHandler<GetToDoQuery, TodoItem> handler,
-		ILogger<GetToDo> logger)
-	{
-		_console = console;
-		_handler = handler;
-		_logger = logger;
-	}
+    public GetToDo(
+        IAnsiConsole console,
+        IQueryHandler<GetToDoQuery, TodoItem> handler,
+        ILogger<GetToDo> logger)
+    {
+        _console = console;
+        _handler = handler;
+        _logger = logger;
+    }
 
-	public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
-	{
-		_console.WriteLine("GetToDo...");
+    public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
+    {
+        _console.WriteLine("GetToDo...");
 
-		var id = _console.Prompt(
-			new TextPrompt<int>("Insert Id:"));
+        var id = _console.Prompt(
+            new TextPrompt<Guid>("Insert Id:"));
 
-		var query = new GetToDoQuery(id);
+        var query = new GetToDoQuery(id);
 
-		var result = await _handler.Handle(query, cancellationToken);
-		if (result.IsSuccess)
-		{
-			LogHelper.Log(_console, result);
-		}
+        var result = await _handler.Handle(query, cancellationToken);
+        if (result.IsSuccess)
+        {
+            LogHelper.Log(_console, result);
+        }
 
-		_console.PressAnyKey();
+        _console.PressAnyKey();
 
-		return 0;
-	}
+        return 0;
+    }
 }

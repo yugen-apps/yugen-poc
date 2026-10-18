@@ -10,27 +10,27 @@ public sealed record CanConnectCommand() : ICommand;
 
 public sealed class CanConnectCommandHandler : ICommandHandler<CanConnectCommand>
 {
-	// private IDbContext _dbContext;
-	private readonly IApplicationDbContextFactory _dbContextFactory;
+    // private IDbContext _dbContext;
+    private readonly IApplicationDbContextFactory _dbContextFactory;
 
-	public CanConnectCommandHandler(
-		// IDbContext dbContext, 
-		IApplicationDbContextFactory dbContextFactory)
-	{
-		// _dbContext = dbContext;
-		_dbContextFactory = dbContextFactory;
-	}
+    public CanConnectCommandHandler(
+        // IDbContext dbContext, 
+        IApplicationDbContextFactory dbContextFactory)
+    {
+        // _dbContext = dbContext;
+        _dbContextFactory = dbContextFactory;
+    }
 
-	public async Task<Result> Handle(CanConnectCommand command, CancellationToken cancellationToken)
-	{
-		await using var _dbContext = await _dbContextFactory.CreateAsync(cancellationToken);
-		
-		var canConnect = await _dbContext.CanConnectAsync();
+    public async Task<Result> Handle(CanConnectCommand command, CancellationToken cancellationToken)
+    {
+        await using var _dbContext = await _dbContextFactory.CreateAsync(cancellationToken);
 
-		var result = canConnect ?
-			Result.Success() :
-			Result.Failure(new Error(string.Empty, string.Empty));
+        var canConnect = await _dbContext.CanConnectAsync();
 
-		return result;
-	}
+        var result = canConnect ?
+            Result.Success() :
+            Result.Failure("Error");
+
+        return result;
+    }
 }

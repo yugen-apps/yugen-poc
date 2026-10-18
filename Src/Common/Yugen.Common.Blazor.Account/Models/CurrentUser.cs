@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 
 namespace Yugen.Common.Blazor.Account.Models;
 
@@ -6,35 +7,36 @@ public class CurrentUser
 {
     public CurrentUser(ClaimsPrincipal user)
     {
-        User = user;
-        IsAuthenticated = User?.Identity?.IsAuthenticated ?? false;
-
-        if (IsAuthenticated)
+        IsAuthenticated = user?.Identity?.IsAuthenticated ?? false;
+        if (!IsAuthenticated)
         {
-            UserName = User?.Identity?.Name;
-            GivenName = User?.FindFirst(ClaimTypes.GivenName)?.Value;
-            Surname = User?.FindFirst(ClaimTypes.Surname)?.Value;
-            Avatar = User?.FindFirst(GoogleClaimTypes.Picture)?.Value;
+            return;
+        }
 
-            var currentUserIdentifier = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (int.TryParse(currentUserIdentifier, out var currentUserId))
-            {
-                Id = currentUserId;
-            }
+        UserName = user?.Identity?.Name;
+        Email = user?.FindFirst(ClaimTypes.Email)?.Value;
+        GivenName = user?.FindFirst(ClaimTypes.GivenName)?.Value;
+        Surname = user?.FindFirst(ClaimTypes.Surname)?.Value;
+        Avatar = user?.FindFirst(GoogleClaimTypes.Picture)?.Value;
+
+        var currentUserIdentifier = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (Guid.TryParse(currentUserIdentifier, out var currentUserId))
+        {
+            Id = currentUserId;
         }
     }
 
-    public ClaimsPrincipal User { get; }
-
     public bool IsAuthenticated { get; }
 
-    public string UserName { get; }
+    public string? UserName { get; }
 
-    public string GivenName { get; }
+    public string? Email { get; }
 
-    public string Surname { get; }
+    public string? GivenName { get; }
 
-    public string Avatar { get; }
+    public string? Surname { get; }
 
-    public int Id { get; set; }
+    public string? Avatar { get; }
+
+    public Guid? Id { get; }
 }

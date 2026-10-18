@@ -13,40 +13,40 @@ namespace Poc.Ef.WorkerService.Commands;
 
 public class AddToDo : AsyncCommand
 {
-	private readonly IAnsiConsole _console;
-	private readonly ICommandHandler<AddToDoCommand, TodoItem> _handler;
-	private readonly ILogger<AddToDo> _logger;
+    private readonly IAnsiConsole _console;
+    private readonly ICommandHandler<AddToDoCommand, TodoItem> _handler;
+    private readonly ILogger<AddToDo> _logger;
 
-	public AddToDo(
-		IAnsiConsole console,
-		ICommandHandler<AddToDoCommand, TodoItem> handler,
-		ILogger<AddToDo> logger)
-	{
-		_console = console;
-		_handler = handler;
-		_logger = logger;
+    public AddToDo(
+        IAnsiConsole console,
+        ICommandHandler<AddToDoCommand, TodoItem> handler,
+        ILogger<AddToDo> logger)
+    {
+        _console = console;
+        _handler = handler;
+        _logger = logger;
 
-		//using var scope = _serviceProvider.CreateScope();
-		//_categoryService = scope.ServiceProvider.GetRequiredService<ICategoryService>();
-	}
+        //using var scope = _serviceProvider.CreateScope();
+        //_categoryService = scope.ServiceProvider.GetRequiredService<ICategoryService>();
+    }
 
-	public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
-	{
-		_console.WriteLine("AddToDo...");
+    public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
+    {
+        _console.WriteLine("AddToDo...");
 
-		var title = _console.Prompt(
-			new TextPrompt<string>("Insert Title:"));
+        var title = _console.Prompt(
+            new TextPrompt<string>("Insert Title:"));
 
-		var command = new AddToDoCommand(title);
+        var command = new AddToDoCommand(title);
 
-		var result = await _handler.Handle(command, cancellationToken);
-		if (result.IsSuccess)
-		{
-			LogHelper.Log(_console, result);
-		}
+        var result = await _handler.Handle(command, cancellationToken);
+        if (result.IsSuccess)
+        {
+            LogHelper.Log(_console, result);
+        }
 
-		_console.PressAnyKey();
+        _console.PressAnyKey();
 
-		return 0;
-	}
+        return 0;
+    }
 }

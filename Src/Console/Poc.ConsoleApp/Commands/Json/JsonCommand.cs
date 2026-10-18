@@ -1,6 +1,4 @@
-﻿using Poc.Shared.Extensions;
-using Poc.Shared.Helpers;
-using Poc.Shared.Models;
+﻿using Poc.Shared.Json;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.IO;
@@ -13,80 +11,94 @@ namespace Poc.ConsoleApp.Commands.Json;
 
 public class JsonCommand : AsyncCommand
 {
-	private readonly IAnsiConsole _console;
+    private readonly IAnsiConsole _console;
 
-	public JsonCommand(
-		IAnsiConsole console)
-	{
-		_console = console;
-	}
+    public JsonCommand(
+        IAnsiConsole console)
+    {
+        _console = console;
+    }
 
-	public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
-	{
-		//var cwd = Directory.GetCurrentDirectory();
-		var cwd = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+    public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
+    {
+        //var cwd = Directory.GetCurrentDirectory();
+        var cwd = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+        if (cwd == null)
+        {
+            _console.Prompt(
+                new TextPrompt<string>("...")
+                    .AllowEmpty());
 
-		var filePath = Path.Combine(cwd, "Data", "test.json");
-		var result = await JsonHelper.ReadTextAsync(filePath);
-		_console.WriteLine($"result...{result}");
+            return 0;
+        }
 
-		var result2 = await JsonHelper.Get<TestJson>(filePath);
-		var testString = result2.TestString.GetString();
-		var testInt = result2.TestInt.GetInt32();
-		var testArray = result2.TestArray.EnumerateArray();
-		var stringArray = JsonSerializer.Deserialize<string[]>(result2.StringArrayAsString ?? "", JsonHelper.JsonSerializerOptions);
-		var intArray = ParseGroupIds(result2.IntArrayAsString);
+        var filePath = Path.Combine(cwd, "Json", "test.json");
+        var result = await JsonHelper.ReadTextAsync(filePath);
+        _console.WriteLine($"result...{result}");
 
-		var properties = result2.Properties;
-		var bookidJsonElement = properties.TryGetPropertyOrNull("bookid");
-		var bookidString = properties.TryGetString("bookid");
-		var bookidIsString = properties.IsString("bookid");
-		var bookidInt = properties.TryGetInt("bookid");
-		var bookidIsInt = properties.TryGetString("bookid");
+        var result2 = await JsonHelper.Get<TestJson>(filePath);
+        if (result2 != null)
+        {
+            var testString = result2.TestString.GetString();
+            var testInt = result2.TestInt.GetInt32();
+            var testArray = result2.TestArray.EnumerateArray();
+            var stringArray = JsonSerializer.Deserialize<string[]>(result2.StringArrayAsString ?? "", JsonHelper.JsonSerializerOptions);
+            var intArray = ParseGroupIds(result2.IntArrayAsString ?? string.Empty);
 
-		var noteidJsonElement = properties.TryGetPropertyOrNull("noteid");
-		var noteidString = properties.TryGetString("noteid");
-		var noteidIsString = properties.IsString("noteid");
-		var noteidInt = properties.TryGetInt("noteid");
-		var noteidIsInt = properties.TryGetString("noteid");
+            var properties = result2.Properties;
+            var bookidJsonElement = properties.TryGetPropertyOrNull("bookid");
+            var bookidString = properties.TryGetString("bookid");
+            var bookidIsString = properties.IsString("bookid");
+            var bookidInt = properties.TryGetInt("bookid");
+            var bookidIsInt = properties.TryGetString("bookid");
 
-		_console.WriteLine($"resul2...{result2.Name}");
+            var noteidJsonElement = properties.TryGetPropertyOrNull("noteid");
+            var noteidString = properties.TryGetString("noteid");
+            var noteidIsString = properties.IsString("noteid");
+            var noteidInt = properties.TryGetInt("noteid");
+            var noteidIsInt = properties.TryGetString("noteid");
 
-		var result3 = await JsonHelper.Set(result2);
-		_console.WriteLine($"result3...{result3}");
+            _console.WriteLine($"resul2...{result2.Name}");
+        }
 
-		filePath = Path.Combine(cwd, "Data", "test2.json");
-		result2 = await JsonHelper.Get<TestJson>(filePath);
-		testString = result2.TestString.GetString();
-		testInt = result2.TestInt.GetInt32();
-		testArray = result2.TestArray.EnumerateArray();
-		stringArray = JsonSerializer.Deserialize<string[]>(result2.StringArrayAsString ?? "[]", JsonHelper.JsonSerializerOptions);
-		intArray = ParseGroupIds(result2.IntArrayAsString);
-		properties = result2.Properties;
+        var result3 = await JsonHelper.Set(result2);
+        _console.WriteLine($"result3...{result3}");
 
-		_console.WriteLine($"resul2...{result2.Name}");
+        filePath = Path.Combine(cwd, "Json", "test2.json");
+        var result4 = await JsonHelper.Get<TestJson>(filePath);
+        if (result4 != null)
+        {
+            var testString = result4.TestString.GetString();
+            var testInt = result4.TestInt.GetInt32();
+            var testArray = result4.TestArray.EnumerateArray();
+            var stringArray = JsonSerializer.Deserialize<string[]>(result4.StringArrayAsString ?? "[]", JsonHelper.JsonSerializerOptions);
+            var intArray = ParseGroupIds(result4.IntArrayAsString ?? string.Empty);
+            var properties = result4.Properties;
 
-		_console.Prompt(
-			new TextPrompt<string>("...")
-				.AllowEmpty());
+            _console.WriteLine($"resul4...{result4.Name}");
+        }
 
-		return 0;
-	}
+        _console.Prompt(
+            new TextPrompt<string>("...")
+                .AllowEmpty());
 
-	private static int[] ParseGroupIds(string s)
-	{
-		if (string.IsNullOrWhiteSpace(s))
-		{
-			return [];
-		}
+        return 0;
+    }
 
-		try
-		{
-			return JsonSerializer.Deserialize<int[]>(s, JsonHelper.JsonSerializerOptions);
-		}
-		catch
-		{
-			return [];
-		}
-	}
+    private static int[] ParseGroupIds(string s)
+    {
+        if (string.IsNullOrWhiteSpace(s))
+        {
+            return [];
+        }
+
+        try
+        {
+            return JsonSerializer.Deserialize<int[]>(s, JsonHelper.JsonSerializerOptions) ?? [];
+        }
+        catch
+        {
+            return [];
+        }
+    }
 }

@@ -15,10 +15,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using Yugen.Common.Blazor.Account.Domain.Entities;
 using Yugen.Common.Blazor.Account.Navigation;
 using Yugen.Common.Blazor.Account.Pages;
 using Yugen.Common.Blazor.Account.Pages.Manage;
-using Yugen.Home.Knx.Data.Models;
 
 namespace Yugen.Common.Blazor.Account;
 
@@ -29,9 +29,9 @@ public static class IdentityComponentsEndpointRouteBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
-		var accountGroup = endpoints.MapGroup($"/{AccountMenuConstants.AccountPath}");
+        var accountGroup = endpoints.MapGroup($"/{AccountMenuConstants.AccountPath}");
 
-		accountGroup.MapPost("/PerformExternalLogin", (
+        accountGroup.MapPost("/PerformExternalLogin", (
             HttpContext context,
             [FromServices] SignInManager<ApplicationUser> signInManager,
             [FromForm] string provider,

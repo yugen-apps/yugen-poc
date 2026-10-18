@@ -3,9 +3,9 @@ services:
   poc-docker-aspnet: 
     build:
       context: ..
-      dockerfile: ./Poc.Ef.Aspnet/Dockerfile    
+      dockerfile: ./Poc.Ef.Blazor/Dockerfile    
       args:
-        - PROJECT=Poc.Ef.Aspnet   
+        - PROJECT=Poc.Ef.Blazor   
         - COMMON=Common
     environment:
       # - ASPNETCORE_HTTP_PORTS=8080

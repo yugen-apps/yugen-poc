@@ -8,7 +8,7 @@ using System;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Yugen.Home.Knx.Data.Models;
+using Yugen.Common.Blazor.Account.Domain.Entities;
 
 namespace Yugen.Common.Blazor.Account;
 

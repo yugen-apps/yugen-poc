@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
-using Yugen.Home.Knx.Data.Models;
+using Yugen.Common.Blazor.Account.Domain.Entities;
 
 namespace Yugen.Common.Blazor.Account;
 

@@ -1,0 +1,12 @@
+﻿@page "/tenants"
+<PageTitle>tenants</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">tenants</MudText>
+
+@foreach (var tenant in tenantsDto)
+{
+    <MudText Typo="Typo.body1" Class="mb-4">
+        @tenant.Id - @tenant.Name
+    </MudText>
+}
+

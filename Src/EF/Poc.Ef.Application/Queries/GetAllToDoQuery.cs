@@ -13,25 +13,25 @@ public sealed record GetAllToDoQuery() : IQuery<List<TodoItem>>;
 
 public sealed class GetAllToDoQueryHandler : IQueryHandler<GetAllToDoQuery, List<TodoItem>>
 {
-	// private IDbContext _dbContext;
-	private readonly IApplicationDbContextFactory _dbContextFactory;
+    // private IDbContext _dbContext;
+    private readonly IApplicationDbContextFactory _dbContextFactory;
 
-	public GetAllToDoQueryHandler(
-		// IDbContext dbContext, 
-		IApplicationDbContextFactory dbContextFactory)
-	{
-		// _dbContext = dbContext;
-		_dbContextFactory = dbContextFactory;
-	}
+    public GetAllToDoQueryHandler(
+        // IDbContext dbContext, 
+        IApplicationDbContextFactory dbContextFactory)
+    {
+        // _dbContext = dbContext;
+        _dbContextFactory = dbContextFactory;
+    }
 
-	public async Task<Result<List<TodoItem>>> Handle(GetAllToDoQuery query, CancellationToken cancellationToken)
-	{
-		await using var _dbContext = await _dbContextFactory.CreateAsync(cancellationToken);
-		
-		var todoItems = await _dbContext
-			.Set<TodoItem>()
-			.ToListAsync(cancellationToken);
+    public async Task<Result<List<TodoItem>>> Handle(GetAllToDoQuery query, CancellationToken cancellationToken)
+    {
+        await using var _dbContext = await _dbContextFactory.CreateAsync(cancellationToken);
 
-		return Result.Success(todoItems);
-	}
+        var todoItems = await _dbContext
+            .Set<TodoItem>()
+            .ToListAsync(cancellationToken);
+
+        return Result.Success(todoItems);
+    }
 }

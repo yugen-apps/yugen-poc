@@ -7,18 +7,18 @@ namespace Yugen.Common.Spectre.Commands;
 
 public class ExitCommand : AsyncCommand
 {
-	private readonly IAnsiConsole _console;
+    private readonly IAnsiConsole _console;
 
-	public ExitCommand(
-		IAnsiConsole console)
-	{
-		_console = console;
-	}
+    public ExitCommand(
+        IAnsiConsole console)
+    {
+        _console = console;
+    }
 
-	public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
-	{
-		_console.WriteLine("Exiting...");
+    public override async Task<int> ExecuteAsync(CommandContext commandContext, CancellationToken cancellationToken)
+    {
+        _console.WriteLine("Exiting...");
 
-		return 1;
-	}
+        return 1;
+    }
 }

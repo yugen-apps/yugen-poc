@@ -9,19 +9,19 @@ namespace Yugen.Common.Spectre.Services;
 
 public class CommandRegistry
 {
-	private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
 
-	public CommandRegistry(
-		IEnumerable<CommandRegistration> commands,
-		IServiceProvider serviceProvider
-	)
-	{
-		_serviceProvider = serviceProvider;
-	}
+    public CommandRegistry(
+        IEnumerable<CommandRegistration> commands,
+        IServiceProvider serviceProvider
+    )
+    {
+        _serviceProvider = serviceProvider;
+    }
 
-	public IEnumerable<CommandRegistration> GetCommands() =>
-		_serviceProvider.GetRegisteredCommands();
+    public IEnumerable<CommandRegistration> GetCommands() =>
+        _serviceProvider.GetRegisteredCommands();
 
-	public ICommand? GetCommand(CommandRegistration commandRegistration) =>
-		_serviceProvider.GetService(commandRegistration.CommandType) as ICommand;
+    public ICommand? GetCommand(CommandRegistration commandRegistration) =>
+        _serviceProvider.GetService(commandRegistration.CommandType) as ICommand;
 }
