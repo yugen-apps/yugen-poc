@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Yugen.Common.Data.Helpers;
 using System;
+using System.Threading.Tasks;
 
 namespace Yugen.Common.Data.Extensions;
 
@@ -101,10 +102,17 @@ public static class IServiceCollectionExtensions
 	//         .AddScoped<ICategoryRepository, CategoryRepository>();
 	// }
 
-	public static void EnsureCreated<T>(this IServiceProvider serviceProvider) where T : DbContext
+	public static async Task EnsureCreatedAsync<T>(this IServiceProvider serviceProvider) where T : DbContext
 	{
 		using var scope = serviceProvider.CreateScope();
 		var applicationDbContext = scope.ServiceProvider.GetRequiredService<T>();
-		applicationDbContext.Database.EnsureCreated();
+		await applicationDbContext.Database.EnsureCreatedAsync();
+	}
+
+	public static async Task MigrateAsync<T>(this IServiceProvider serviceProvider) where T : DbContext
+	{
+		using var scope = serviceProvider.CreateScope();
+		var applicationDbContext = scope.ServiceProvider.GetRequiredService<T>();
+		await applicationDbContext.Database.MigrateAsync();
 	}
 }

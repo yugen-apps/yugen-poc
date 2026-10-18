@@ -6,6 +6,7 @@
     <File Path="../Docs/blazor.md" />
     <File Path="../Docs/cheat-sheet.md" />
     <File Path="../Docs/docker.md" />
+    <File Path="../Docs/ef.md" />
     <File Path="../Docs/identity.md" />
     <File Path="../Docs/redis.md" />
     <File Path="../Docs/windows.md" />
@@ -25,6 +26,7 @@
     <Project Path="Auth/Poc.Auth.Blazor/Poc.Auth.Blazor.csproj" />
   </Folder>
   <Folder Name="/Common/">
+    <Project Path="Common/Yugen.Common.Blazor.Account.Domain/Yugen.Common.Blazor.Account.Domain.csproj" Id="d1755857-7fcd-4829-9bc9-88d297ace7d1" />
     <Project Path="Common/Yugen.Common.Blazor.Account/Yugen.Common.Blazor.Account.csproj" />
     <Project Path="Common/Yugen.Common.Blazor/Yugen.Common.Blazor.csproj" />
     <Project Path="Common/Yugen.Common.Data/Yugen.Common.Data.csproj" />
@@ -61,11 +63,15 @@
   </Folder>
   <Folder Name="/EF/Presentation/">
     <Project Path="EF/Poc.Ef.Api/Poc.Ef.Api.csproj" />
+    <Project Path="EF/Poc.Ef.Blazor/Poc.Ef.Blazor.csproj" />
     <Project Path="EF/Poc.Ef.WorkerService/Poc.Ef.WorkerService.csproj" />
-    <Project Path="EF/Poc.Ef.Aspnet/Poc.Ef.Aspnet.csproj" />
   </Folder>
   <Folder Name="/EF/Tests/">
     <Project Path="EF/Poc.Ef.Infrastructure.UnitTests/Poc.Ef.Infrastructure.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/Identity/">
+    <Project Path="Identity/Poc.Identity.Blazor/Poc.Identity.Blazor.csproj" Id="d7ba17e9-2bd2-4a1e-a972-04e0d9e3714e" />
+    <Project Path="Identity/Poc.Identity.Data/Poc.Identity.Data.csproj" Id="188b694b-1ba7-4169-af25-d3583adf7619" />
   </Folder>
   <Folder Name="/Redis/">
     <Project Path="Redis/docker-compose/poc-redis-docker-compose.dcproj">

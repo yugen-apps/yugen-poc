@@ -66,8 +66,7 @@ public class Program
 
 		var app = builder.Build();
 
-
-		app.Services.EnsureCreated<ApplicationDbContext>();
+		await app.Services.EnsureCreatedAsync<ApplicationDbContext>();
 
 		await app.RunAsync();
 

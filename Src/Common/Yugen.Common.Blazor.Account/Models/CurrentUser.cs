@@ -9,32 +9,34 @@ public class CurrentUser
         User = user;
         IsAuthenticated = User?.Identity?.IsAuthenticated ?? false;
 
-        if (IsAuthenticated)
+        if (!IsAuthenticated)
         {
-            UserName = User?.Identity?.Name;
-            GivenName = User?.FindFirst(ClaimTypes.GivenName)?.Value;
-            Surname = User?.FindFirst(ClaimTypes.Surname)?.Value;
-            Avatar = User?.FindFirst(GoogleClaimTypes.Picture)?.Value;
+            return;
+        }
 
-            var currentUserIdentifier = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (int.TryParse(currentUserIdentifier, out var currentUserId))
-            {
-                Id = currentUserId;
-            }
+        UserName = User?.Identity?.Name;
+        GivenName = User?.FindFirst(ClaimTypes.GivenName)?.Value;
+        Surname = User?.FindFirst(ClaimTypes.Surname)?.Value;
+        Avatar = User?.FindFirst(GoogleClaimTypes.Picture)?.Value;
+
+        var currentUserIdentifier = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (int.TryParse(currentUserIdentifier, out var currentUserId))
+        {
+            Id = currentUserId;
         }
     }
 
-    public ClaimsPrincipal User { get; }
+    public ClaimsPrincipal? User { get; }
 
     public bool IsAuthenticated { get; }
 
-    public string UserName { get; }
+    public string? UserName { get; }
 
-    public string GivenName { get; }
+    public string? GivenName { get; }
 
-    public string Surname { get; }
+    public string? Surname { get; }
 
-    public string Avatar { get; }
+    public string? Avatar { get; }
 
-    public int Id { get; set; }
+    public int Id { get; }
 }

@@ -126,7 +126,7 @@ pem file (not needed)
 
 > sudo docker compose --file docker-compose.yml --file docker-compose.unraid.yml up --detach
 
-## Poc.Ef.Aspnet
+## Poc.Ef.Blazor
 
 ### Windows
 

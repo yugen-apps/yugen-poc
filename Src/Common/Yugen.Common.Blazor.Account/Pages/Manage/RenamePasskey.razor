@@ -4,7 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Identity
-@using Yugen.Home.Knx.Data.Models
+@using Yugen.Common.Blazor.Account.Domain
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IdentityRedirectManager RedirectManager
@@ -80,8 +80,6 @@
             RedirectManager.RedirectToWithStatus(AccountMenuConstants.AccountManagePasskeysPath, "Error: The specified passkey could not be found.", HttpContext);
             return;
         }
-
-        Input.Name = passkey.Name ?? string.Empty;
     }
 
     private async Task Rename()

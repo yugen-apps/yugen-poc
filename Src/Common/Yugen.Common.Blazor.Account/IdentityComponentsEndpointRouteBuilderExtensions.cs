@@ -15,10 +15,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using Yugen.Common.Blazor.Account.Domain;
 using Yugen.Common.Blazor.Account.Navigation;
 using Yugen.Common.Blazor.Account.Pages;
 using Yugen.Common.Blazor.Account.Pages.Manage;
-using Yugen.Home.Knx.Data.Models;
 
 namespace Yugen.Common.Blazor.Account;
 

@@ -63,12 +63,12 @@ public class Program
 		//app.UseCookiePolicy()
 		//   .UseAuthentication();
 
-		// 1️⃣ Authenticate the user (sets HttpContext.User)  (not needed?)
+		// 1️ Authenticate the user (sets HttpContext.User)  (not needed?)
 		//app.UseAuthentication();
-		// 2️⃣ Check if the user is allowed to access the resource  (not needed?)
+		// 2️ Check if the user is allowed to access the resource  (not needed?)
 		//app.UseAuthorization();
 
-		// 3️⃣ Validate CSRF tokens (AFTER authentication/authorization)
+		// 3️ Validate CSRF tokens (AFTER authentication/authorization)
 		app.UseAntiforgery();
 
 		// Add the incremental consent and conditional access handler for Blazor server side pages. (not needed?)

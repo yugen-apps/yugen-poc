@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Yugen.Common.Blazor.Account.Domain\Yugen.Common.Blazor.Account.Domain.csproj" />
 		<ProjectReference Include="..\Yugen.Common.Blazor\Yugen.Common.Blazor.csproj" />
 	</ItemGroup>
 

@@ -3,12 +3,12 @@ services:
 
   poc-docker-aspnet:
     container_name: poc-docker-aspnet
-    entrypoint: ["dotnet", "Poc.Ef.Aspnet.dll"]
+    entrypoint: ["dotnet", "Poc.Ef.Blazor.dll"]
     build:
       context: ../..
-      dockerfile: ./EF/Poc.Ef.Aspnet/Dockerfile    
+      dockerfile: ./EF/Poc.Ef.Blazor/Dockerfile    
       args:
-        - PROJECT=EF/Poc.Ef.Aspnet   
+        - PROJECT=EF/Poc.Ef.Blazor   
         - COMMON=Common
     # depends_on:
     #   - poc-docker-sql

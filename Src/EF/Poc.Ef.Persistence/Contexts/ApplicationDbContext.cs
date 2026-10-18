@@ -28,8 +28,7 @@ public sealed class ApplicationDbContext : DbContext, IDbContext
 
 	/// <inheritdoc />
 	public new DbSet<TEntity> Set<TEntity>()
-		where TEntity : BaseEntity =>
-			base.Set<TEntity>();
+		where TEntity : BaseEntity => base.Set<TEntity>();
 
 	//     public IQueryable<T> Query => DbSet;
 	

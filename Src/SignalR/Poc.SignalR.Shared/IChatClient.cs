@@ -1,4 +1,6 @@
-﻿namespace Poc.SignalR.Shared;
+﻿using System.Threading.Tasks;
+
+namespace Poc.SignalR.Shared;
 
 public interface IChatClient
 {
